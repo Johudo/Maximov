@@ -52,15 +52,10 @@ class User(AbstractUser):
     last_name = None
     date_joined = None
 
-    login = models.CharField(
-        verbose_name="Логин", max_length=128, unique=True, primary_key=True
-    )
-    email = models.EmailField(
-        verbose_name="Email", max_length=256, unique=True, null=True, blank=True
-    )
-    phone = models.CharField(
-        verbose_name="Телефон", max_length=15, unique=True, null=True, blank=True
-    )
+    id = models.AutoField(primary_key=True)
+    login = models.CharField(verbose_name="Логин", max_length=128, unique=True)
+    email = models.EmailField(verbose_name="Email", max_length=256, unique=True, null=True, blank=True)
+    phone = models.CharField(verbose_name="Телефон", max_length=15, unique=True, null=True, blank=True)
     birthday = models.DateField(verbose_name="Дата рождения", null=True, blank=True)
 
     USERNAME_FIELD = "login"

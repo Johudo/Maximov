@@ -6,8 +6,9 @@ from django.contrib.auth.models import Group
 from users import views
 
 urlpatterns = [
-    path("register", views.register, name="register"),
-    path("", admin.site.urls),
+    path("admin/", admin.site.urls),
+    path("", include("products.urls")),
+    path("", include("users.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

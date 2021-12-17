@@ -78,6 +78,7 @@ class ProductAdmin(admin.ModelAdmin):
         "type",
         "provider",
         "country",
+        "image",
     ]
 
     list_filter = (

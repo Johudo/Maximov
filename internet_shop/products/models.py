@@ -1,15 +1,14 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django_resized import ResizedImageField
 
-from .utils import get_current_year
+from .utils import get_current_year, path_and_rename_announcement_image
 
 
 class Сharacteristic(models.Model):
 
     id = models.AutoField(primary_key=True, unique=True)
-    name = models.CharField(
-        verbose_name="Название характиеристики", max_length=128, unique=True
-    )
+    name = models.CharField(verbose_name="Название характиеристики", max_length=128, unique=True)
 
     class Meta:
         db_table = "characteristic"
@@ -39,9 +38,7 @@ class ProductType(models.Model):
 class Provider(models.Model):
 
     id = models.AutoField(primary_key=True, unique=True)
-    name = models.CharField(
-        verbose_name="Название компании поставщика", max_length=128, unique=True
-    )
+    name = models.CharField(verbose_name="Название компании поставщика", max_length=128, unique=True)
 
     class Meta:
         db_table = "provider"
@@ -93,6 +90,15 @@ class Product(models.Model):
     )
     price = models.DecimalField(verbose_name="Цена", max_digits=9, decimal_places=2)
     name = models.CharField(verbose_name="Название товара", max_length=300, unique=True)
+
+    image = ResizedImageField(
+        verbose_name="Фото",
+        size=[1920, 1080],
+        quality=100,
+        crop=["middle", "center"],
+        upload_to=path_and_rename_announcement_image,
+        default="default-product.jpg",
+    )
 
     type = models.ForeignKey(
         ProductType,
