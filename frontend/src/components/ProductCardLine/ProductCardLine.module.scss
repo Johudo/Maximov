@@ -1,0 +1,120 @@
+@import "../../styles/colors.scss";
+
+.card {
+    display: flex;
+    align-items: flex-start;
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 10px rgba(black, 0.25);
+}
+
+.imageWrapper {
+    position: relative;
+    margin-right: 20px;
+    min-width: 200px;
+    width: 200px;
+    padding-bottom: 200px;
+
+    .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.infoBlock {
+    padding: 10px 0;
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .rightBlock {
+        flex-grow: 1;
+        margin-right: 20px;
+    }
+
+    .leftBlock {
+        flex-shrink: 0;
+    }
+
+    .cardPrice {
+        color: $green-color;
+        font-size: 2em;
+        margin-bottom: 20px;
+        text-align: right;
+    }
+
+    .cardTitle {
+        font-size: 1.1em;
+        margin-bottom: 12px;
+    }
+
+    .customInfo {
+        margin-bottom: 4px;
+
+        span {
+            font-weight: bold;
+        }
+    }
+
+    .buttonsBlock {
+        .customButton,
+        .basketButton {
+            display: block;
+            width: 100%;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .customButton {
+            background-color: #fff;
+            color: $green-color;
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .card {
+        align-items: flex-start;
+    }
+
+    .imageWrapper {
+        min-width: 120px;
+        width: 120px;
+        padding-bottom: 120px;
+    }
+}
+
+@media (max-width: 600px) {
+    .card,
+    .infoBlock {
+        display: block;
+    }
+
+    .imageWrapper {
+        min-width: 200px;
+        width: 200px;
+        padding-bottom: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+    }
+
+    .cardPrice,
+    .cardTitle {
+        text-align: center !important;
+    }
+
+    .rightBlock {
+        margin-bottom: 20px;
+    }
+}

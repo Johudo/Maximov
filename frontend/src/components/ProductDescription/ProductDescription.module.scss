@@ -1,0 +1,60 @@
+// @import "../../styles/button.scss";
+// @import "../../styles/input.scss";
+
+.productDescription {
+    background: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+}
+
+.mainTitle {
+    font-size: 1.2em;
+}
+
+.title {
+    font-size: 1em;
+}
+
+.customiserList .customiserItem {
+    margin-top: 1em;
+
+    span {
+        font-weight: bold;
+    }
+}
+
+.feedbackList,
+.descriptionBlock .description,
+.feedbackItem:last-child {
+    margin: 0;
+}
+
+.feedbackTextarea {
+    background-color: #eeeeee;
+}
+
+.feedbackButton {
+    // @include button;
+    text-transform: none;
+    margin-left: auto;
+}
+
+.feedbackTextarea,
+.feedbackList,
+.feedbackItem,
+.feedbacksBlock,
+.customiserList,
+.descriptionBlock {
+    margin-bottom: 24px;
+}
+
+.title,
+.mainTitle {
+    margin-bottom: 18px;
+}
+
+@media (max-width: 600px) {
+    .feedbackButton {
+        margin-right: auto;
+    }
+}

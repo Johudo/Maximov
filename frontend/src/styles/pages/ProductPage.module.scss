@@ -1,0 +1,41 @@
+.page {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .leftColumn,
+    .rightColumn {
+        width: calc(50% - 10px);
+    }
+
+    .rightColumn {
+        position: sticky;
+    }
+
+    .productSlideShow {
+        margin-bottom: 20px;
+    }
+}
+
+.modilePage {
+    display: none;
+}
+
+@media (max-width: 1060px) {
+    .page {
+        display: block;
+
+        .leftColumn,
+        .rightColumn {
+            display: none;
+        }
+
+        .modilePage {
+            display: block;
+
+            & > *:not(:last-child) {
+                margin-bottom: 20px;
+            }
+        }
+    }
+}

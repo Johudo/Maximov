@@ -1,0 +1,47 @@
+@import "../../styles/colors.scss";
+
+.form > * {
+    width: 100%;
+
+    &:not(:last-child) {
+        margin-bottom: 16px;
+    }
+}
+
+.transparentButton {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    background-color: transparent !important;
+    color: $green-color !important;
+    border: none !important;
+
+    &:hover {
+        color: rgba($color: black, $alpha: 0.6) !important;
+        background-color: transparent !important;
+    }
+}
+
+.preloader,
+.preloaderHidden {
+    display: inline;
+    width: auto;
+    transition: 0.3s;
+
+    * {
+        transition: 0.3s;
+    }
+}
+
+.preloaderHidden {
+    width: 0;
+    opacity: 0;
+
+    * {
+        width: 0;
+        margin: 0;
+    }
+}
+
+.checkbox {
+    justify-content: center;
+}

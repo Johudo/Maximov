@@ -1,0 +1,175 @@
+@import "../../styles/colors.scss";
+
+.catalogFilter {
+    background: white;
+    padding: 20px;
+    // border: 1px solid rgba($color: #000000, $alpha: 0.1);
+    box-shadow: 0px 4px 10px rgba($color: #000000, $alpha: 0.25);
+}
+
+.title {
+    margin-bottom: 12px;
+}
+
+.priceTitle {
+    margin-bottom: 24px;
+}
+
+.screenSize {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .screenSizeButton,
+    .screenSizeButtonActive {
+        width: calc(50% - 10px);
+        margin-right: 20px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .screenSizeButton {
+        background-color: transparent;
+        color: $green-color;
+    }
+}
+
+.gamesBlock {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    margin: 0 auto;
+    margin-bottom: 20px;
+
+    .imageBlock {
+        position: relative;
+        cursor: pointer;
+        padding: 4px;
+
+        .gameImage {
+            display: block;
+            width: 100%;
+            z-index: 20;
+        }
+
+        .gameSelectedBlock {
+            z-index: 21;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            .selectedIconWrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 28px;
+                height: 28px;
+                background-color: $green-color;
+                border-radius: 50%;
+                box-shadow: 0px 4px 20px white;
+
+                svg {
+                    font-size: 18px;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+.priceRangeFilter {
+    position: relative;
+    margin-bottom: 20px;
+
+    .ranges {
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        padding-top: 20px;
+    }
+
+    .slider {
+        position: relative;
+        display: block;
+        height: 5px;
+        width: 100%;
+
+        .maxSliderFuller,
+        .minSliderFuller {
+            position: absolute;
+            height: 100%;
+            background-color: rgba($color: #ffffff, $alpha: 0.7);
+            top: 0;
+        }
+
+        .maxSliderFuller {
+            right: 0;
+        }
+
+        .minSliderFuller {
+            left: 0;
+        }
+
+        .sliderInput {
+            -webkit-appearance: none;
+            height: 100%;
+            position: absolute;
+            background: #a1d55d;
+            outline: none;
+            width: 100%;
+
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 15px;
+                height: 15px;
+                background: #a1d55d;
+                cursor: pointer;
+                border-radius: 100px;
+
+                pointer-events: all;
+                position: relative;
+                z-index: 1;
+                outline: 0;
+            }
+        }
+    }
+}
+
+.filterBlock {
+    margin-bottom: 20px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.checkboxBlock {
+    margin-bottom: 10px;
+}
+
+.confirmButton {
+    width: 100%;
+}
+
+@media (max-width: 460px) {
+    .screenSize {
+        display: block;
+
+        .screenSizeButton,
+        .screenSizeButtonActive {
+            width: 100%;
+            margin-bottom: 20px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

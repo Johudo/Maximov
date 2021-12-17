@@ -1,0 +1,58 @@
+@import "../../styles/colors.scss";
+
+.form {
+    flex: 1 0 auto;
+    padding-top: 20px;
+
+    .input,
+    .errorInput {
+        display: block;
+        width: 100%;
+        margin-bottom: 1em;
+    }
+
+    .errorInput {
+        border-color: $green-color;
+        background-color: rgba($color: $green-color, $alpha: 0.1);
+    }
+
+    label {
+        margin-bottom: 4px;
+    }
+}
+
+.nameBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    div {
+        width: calc(50% - 10px);
+    }
+}
+
+.changePasswordBlock {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    .changePasswordTitle {
+        padding: 0 4px;
+    }
+}
+
+.button {
+    min-width: 200px;
+    margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+    .nameBlock {
+        display: block;
+
+        div {
+            width: 100%;
+        }
+    }
+}

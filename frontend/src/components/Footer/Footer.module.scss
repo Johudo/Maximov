@@ -1,0 +1,73 @@
+// @import "../../../defaultStyles/container.scss";
+// @import "../../../defaultStyles/input.scss";
+// @import "../../../defaultStyles/button.scss";
+
+.background {
+    background-color: black;
+    width: 100%;
+    color: white;
+}
+
+.upperContainer,
+.lowerContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.upperContainer {
+    padding-top: 30px;
+    margin-bottom: 20px;
+
+    svg {
+        font-size: 1.2em;
+    }
+}
+
+.lowerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 30px;
+    color: rgba($color: white, $alpha: 0.5);
+}
+
+.logo {
+    display: block;
+
+    img {
+        display: block;
+    }
+}
+
+.iconWithText {
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child) {
+        margin-bottom: 8px;
+    }
+
+    svg {
+        margin-right: 8px;
+    }
+}
+
+@media (max-width: 460px) {
+    .upperContainer {
+        display: block;
+    }
+
+    .logo {
+        margin-bottom: 20px;
+
+        img {
+            margin: 0 auto;
+        }
+    }
+
+    .contactsBlock {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

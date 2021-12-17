@@ -1,0 +1,152 @@
+@import "../../styles/colors.scss";
+
+.item {
+    display: flex;
+    align-items: flex-start;
+}
+
+.order {
+    display: block;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(black, 0.25);
+    padding: 20px;
+    margin-bottom: 20px;
+    flex: 1 0 auto;
+
+    .orderHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: center;
+
+        .orderId,
+        .toggleOrderButton,
+        .orderPrice {
+            color: $green-color;
+            font-weight: bold;
+        }
+
+        .orderDate,
+        .orderId,
+        .orderPrice,
+        .toggleOrderButton {
+            width: 80px;
+        }
+
+        .orderStatus {
+            width: 200px;
+        }
+    }
+
+    .orderInfo {
+        margin-top: 24px;
+
+        .trackInfo {
+            margin-top: 10px;
+            font-weight: bold;
+
+            span {
+                color: $green-color;
+            }
+        }
+    }
+}
+
+.reuseOrder {
+    font-size: 32px;
+    color: $green-color;
+    margin-left: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.ordersList {
+    display: grid;
+    column-gap: 20px;
+    row-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    margin-bottom: 20px;
+}
+
+@media (max-width: 880px) {
+    .item {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .order {
+        width: 100%;
+    }
+
+    .orderId {
+        order: 1;
+    }
+
+    .orderStatus {
+        order: 2;
+    }
+
+    .orderDate {
+        order: 3;
+    }
+
+    .orderPrice {
+        order: 3;
+    }
+
+    .toggleOrderButton {
+        order: 5;
+        width: 100% !important;
+    }
+
+    .orderId,
+    .orderDate {
+        text-align: left;
+    }
+
+    .orderStatus,
+    .orderPrice {
+        text-align: right;
+    }
+
+    .orderId,
+    .orderStatus,
+    .orderDate,
+    .orderPrice {
+        width: calc(50% - 20px) !important;
+        margin-bottom: 10px;
+    }
+
+    .orderHeader {
+        flex-wrap: wrap;
+    }
+
+    .reuseOrder {
+        display: none;
+    }
+}
+
+@media (max-width: 460px) {
+    .orderHeader {
+        display: block !important;
+    }
+
+    .orderDate,
+    .orderId,
+    .orderPrice,
+    .toggleOrderButton,
+    .orderStatus {
+        width: 100% !important;
+        margin: 0;
+        margin-bottom: 12px;
+        text-align: center;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .ordersList {
+        display: block;
+    }
+}

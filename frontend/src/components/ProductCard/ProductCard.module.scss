@@ -1,0 +1,89 @@
+// @import "../../styles/squareImage.scss";
+@import "../../styles/colors.scss";
+
+.card {
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.cardTitle {
+    color: #000000;
+    text-align: center;
+    font-size: 1em;
+    margin-bottom: 12px;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    margin-bottom: 20px;
+
+    .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.cardPrice {
+    display: inline;
+    font-size: 1.4em;
+    color: $green-color;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.lowerBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buttonsBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .button {
+        background: #a1d55d;
+        color: white;
+        font-size: 1.2em;
+        border-radius: 5px;
+        padding: 8px;
+        margin-right: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.characteristicsList {
+    margin-top: 20px;
+
+    .characteristicItem {
+        display: flex;
+        align-items: center;
+        padding: 4px 8px;
+        border-bottom: 1px solid rgba($color: $green-color, $alpha: 0.4);
+        padding: 8px 12px;
+
+        .characteristicImageWrapper {
+            flex: 0 0 auto;
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

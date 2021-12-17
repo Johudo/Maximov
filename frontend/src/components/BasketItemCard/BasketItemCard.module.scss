@@ -1,0 +1,84 @@
+@import "../../styles/colors.scss";
+
+.product {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba($color: #000000, $alpha: 0.15);
+    // max-height: 120px;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.imageBlock {
+    min-width: 80px;
+    width: 80px;
+    margin-right: 20px;
+
+    .imageWrapper {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 100%;
+
+        .image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.rightBlock {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-grow: 1;
+
+    .infoBlock {
+        font-weight: bold;
+        margin-right: 20px;
+
+        .screenonLink {
+            display: block;
+            font-weight: normal;
+            color: $green-color;
+            font-size: 0.9em;
+        }
+
+        .priceInfo {
+            color: $green-color;
+        }
+
+        .nameInfo,
+        .screenonLink {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+@media (max-width: 460px) {
+    .rightBlock {
+        display: block;
+
+        .infoBlock {
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+@media (max-width: 300px) {
+    .product {
+        display: block;
+
+        .imageBlock {
+            width: 100%;
+        }
+    }
+}

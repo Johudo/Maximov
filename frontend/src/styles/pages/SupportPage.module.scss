@@ -1,0 +1,124 @@
+@import "../colors.scss";
+
+.gridBlock {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-bottom: 20px;
+
+    .gridItem {
+        display: block;
+        text-align: center;
+        padding: 30px 20px;
+        border: 1px solid rgba($color: black, $alpha: 0.1);
+        width: calc(100% / 3 - 20px);
+        margin: 10px;
+
+        .gridItemTitle {
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+
+        .gridItemImage {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+        }
+
+        .gridItemParagraph {
+            margin-top: 8px;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.pageInfo {
+    margin-bottom: 30px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    .pageInfoTitle {
+        font-size: 1.2em;
+        margin-bottom: 16px;
+        text-align: center;
+    }
+
+    .pageInfoSubtitle {
+        margin-bottom: 0;
+    }
+}
+
+.contactUs {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: 0 20px;
+
+    .contact {
+        width: 50%;
+        padding: 30px;
+        border: 1px solid rgba($color: black, $alpha: 0.1);
+        border-right: none;
+
+        &:last-child {
+            border-right: 1px solid rgba($color: black, $alpha: 0.1);
+        }
+
+        & > * {
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .contactImage {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 16px;
+        }
+
+        .contactTitle {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .contactData {
+            color: rgba($color: black, $alpha: 0.5);
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    .gridItem {
+        width: calc(100% / 2 - 20px) !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .contactUs {
+        display: block;
+        padding: 0 !important;
+
+        .contact {
+            width: 100%;
+            border-right: 1px solid rgba($color: black, $alpha: 0.1);
+            border-bottom: none;
+
+            &:last-child {
+                border-bottom: 1px solid rgba($color: black, $alpha: 0.1);
+            }
+        }
+    }
+
+    .gridItem {
+        width: 100% !important;
+        margin: 0 !important;
+        border-bottom: none !important;
+
+        &:last-child {
+            border-bottom: 1px solid rgba($color: black, $alpha: 0.1) !important;
+        }
+    }
+}

@@ -1,0 +1,79 @@
+@import "../../styles/colors.scss";
+
+.managePagesBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .nextPageButton,
+    .prevPageButton {
+        width: 250px;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-right: 20px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .prevPageButton {
+        background-color: transparent;
+        color: $green-color;
+    }
+}
+
+.selectPriceBlock {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0;
+
+    .priceButton,
+    .priceButtonSelected {
+        margin-right: 20px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .priceButton {
+        background-color: transparent;
+        color: $green-color;
+    }
+}
+
+@media (max-width: 680px) {
+    .selectPriceBlock {
+        flex-direction: column;
+        .priceButton,
+        .priceButtonSelected {
+            margin-bottom: 20px;
+            margin-right: 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 560px) {
+    .selectPriceBlock,
+    .managePagesBlock {
+        display: block;
+
+        .priceButton,
+        .priceButtonSelected,
+        .nextPageButton,
+        .prevPageButton {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-right: 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

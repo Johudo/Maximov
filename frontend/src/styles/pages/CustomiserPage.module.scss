@@ -1,0 +1,115 @@
+@import "../colors.scss";
+
+.page {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.customizerCatalog {
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
+.sidebar,
+.sidebarHidden {
+    position: sticky;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.mobileResultTop {
+    display: none;
+}
+
+.topBlock {
+    display: none;
+    background-color: white;
+    margin-bottom: 20px;
+    color: #677279;
+    box-shadow: 0px 4px 10px rgba(black, 0.25);
+    padding: 20px;
+
+    .resultBlock {
+        display: flex;
+        align-items: center;
+        margin-right: 12px;
+        cursor: pointer;
+
+        svg {
+            font-size: 24px;
+            margin-right: 20px;
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .page {
+        flex-direction: column;
+    }
+
+    .topBlock {
+        display: flex;
+    }
+
+    .customizerCatalog {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .sidebar,
+    .sidebarHidden {
+        position: fixed;
+        top: 0;
+        right: 0;
+        display: block;
+        width: 100%;
+        height: 100vh;
+        content: "";
+        background-color: rgba($color: #000000, $alpha: 0.2);
+        z-index: 120;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.35s ease-in-out, visibility 0s ease-in-out 0s;
+
+        .sidebarBackground {
+            position: fixed;
+            top: 0;
+            right: 0;
+            display: block;
+            max-width: 380px;
+            padding: 20px 0;
+            width: 100%;
+            height: 100vh;
+            overflow-y: auto;
+            background-color: $bg-main-color;
+            transform: translateX(0);
+            transition: transform 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+            .sidebarWrapper {
+                position: relative;
+            }
+        }
+
+        .mobileResultTop {
+            display: block;
+            height: 24px;
+            margin-bottom: 16px;
+            padding: 0 20px;
+
+            svg {
+                font-size: 20px;
+            }
+        }
+    }
+
+    .sidebarHidden {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.35s ease-in-out, visibility 0.35s ease-in-out 0s;
+
+        .sidebarBackground {
+            transform: translateX(100%);
+        }
+    }
+}

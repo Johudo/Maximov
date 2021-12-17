@@ -1,0 +1,113 @@
+@import "../../styles/colors.scss";
+
+.deviceTypeBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+
+    .deviceTypeButton,
+    .deviceTypeButtonActive {
+        margin-right: 20px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .deviceTypeButton {
+        background-color: transparent;
+        color: $green-color;
+    }
+}
+
+.managePagesBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .nextPageButton,
+    .prevPageButton {
+        width: 250px;
+        margin-right: 20px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .prevPageButton {
+        background-color: transparent;
+        color: $green-color;
+    }
+}
+
+.platformsBlock {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    margin-bottom: 30px;
+
+    .platformsImageWrapper {
+        width: 250px;
+        margin-right: 40px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        .platformsImageWrapperChild {
+            width: 100%;
+            padding-bottom: 100%;
+            position: relative;
+
+            img {
+                display: block;
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                top: 0;
+                left: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .platformsBlock {
+        flex-direction: column;
+        align-items: center;
+
+        .platformsImageWrapper {
+            margin-bottom: 20px;
+            margin-right: 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .deviceTypeBlock,
+    .managePagesBlock {
+        display: block;
+
+        .deviceTypeButton,
+        .deviceTypeButtonActive,
+        .nextPageButton,
+        .prevPageButton {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-right: 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

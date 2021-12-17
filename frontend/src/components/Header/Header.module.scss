@@ -1,0 +1,242 @@
+@use "../../styles/colors.scss";
+@import "../../styles/container.scss";
+
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.background {
+    position: relative;
+    background-color: black;
+    width: 100%;
+    color: white;
+}
+
+.container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.bars {
+    display: none;
+    margin-right: 20px;
+}
+
+.logo {
+    display: block;
+    margin: 0 50px 0 0;
+
+    .logoLink {
+        display: block;
+        position: relative;
+        height: 30px;
+    }
+
+    .logoImage {
+        height: 30px;
+    }
+}
+
+.inputBlock,
+.mobileInputBlock {
+    display: flex;
+    height: 40px;
+    flex: 1 0 auto;
+
+    .input {
+        width: 240px;
+        flex: 1 0 auto;
+        height: 40px;
+        border-radius: 2px 0 0 2px;
+        border: none;
+    }
+
+    .button {
+        height: 40px;
+        width: 40px;
+        padding: 0;
+        background-color: colors.$green-color;
+        border-radius: 0 2px 2px 0;
+    }
+}
+
+.rightBlock {
+    display: flex;
+    margin-left: 20px;
+
+    & > * {
+        margin-left: 20px;
+    }
+
+    .telephone {
+        display: flex;
+        align-items: center;
+        margin-left: 40px;
+
+        svg {
+            margin-right: 12px;
+        }
+    }
+}
+
+.basketBlock {
+    position: relative;
+
+    .basketCard {
+        position: absolute;
+        top: 44px;
+        right: -20px;
+        width: 500px;
+
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: -23px;
+            right: 18px;
+            border: 12px solid transparent;
+            border-bottom: 12px solid white;
+        }
+    }
+
+    .basketCounter {
+        position: absolute;
+        bottom: -10px;
+        right: -10px;
+        background-color: colors.$green-color;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        line-height: 12px;
+        cursor: pointer;
+    }
+}
+
+.navbar {
+    display: block;
+}
+
+.mobileSearchButton,
+.mobileSearch,
+.mobileSearchHidden {
+    display: none;
+}
+
+.icon,
+.bars,
+.basketIcon,
+.mobileSearchButton {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+    .navbar,
+    .telephone,
+    .basketCard {
+        display: none !important;
+    }
+
+    .bars {
+        display: block;
+    }
+
+    .logoLink,
+    .logoImage {
+        height: 24px !important;
+        line-height: 24px;
+    }
+}
+
+@media (max-width: 760px) {
+    .container {
+        justify-content: flex-start;
+        height: 80px;
+    }
+
+    .logo {
+        margin-right: 0;
+    }
+
+    .rightBlock {
+        margin-left: auto;
+    }
+
+    .mobileSearchButton {
+        display: block;
+    }
+
+    .inputBlock {
+        display: none;
+    }
+
+    .mobileSearch,
+    .mobileSearchHidden {
+        @include container;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        visibility: visible;
+        display: block;
+        width: 100%;
+        padding-top: 0;
+        padding-bottom: 20px;
+        margin-bottom: -60px !important;
+        background-color: black;
+        transition: 0.4s;
+
+        .inputBlock {
+            display: flex;
+        }
+    }
+
+    .mobileSearchHidden {
+        margin-bottom: 0 !important;
+        visibility: hidden;
+    }
+}
+
+@media (max-width: 460px) {
+    .container {
+        flex-wrap: wrap;
+    }
+
+    .logoLink,
+    .logoImage {
+        height: 20px !important;
+        line-height: 20px;
+    }
+}
+
+@media (max-width: 350px) {
+    .icon,
+    .bars,
+    .basketIcon,
+    .mobileSearchButton {
+        font-size: 16px !important;
+    }
+
+    .logoLink,
+    .logoImage {
+        height: 14px !important;
+        line-height: 14px;
+    }
+
+    .mobileSearch,
+    .mobileSearchHidden {
+        input {
+            width: 100px !important;
+        }
+    }
+}

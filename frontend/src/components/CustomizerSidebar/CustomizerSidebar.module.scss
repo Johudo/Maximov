@@ -1,0 +1,219 @@
+@import "../../styles/colors.scss";
+
+.sidebar {
+    position: relative;
+    width: 320px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+.sidebarTop {
+    padding-bottom: 20px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    background-color: $bg-main-color;
+    background: linear-gradient(to bottom, $bg-main-color 0%, $bg-main-color 96%, rgba($bg-main-color, 0) 100%);
+}
+
+.selector {
+    font-weight: bold;
+    margin-bottom: 4px;
+
+    .selectorSelectedOption {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &::after {
+            display: inline-block;
+            margin-left: 4px;
+            content: "";
+            background-image: url("../../../public/images/customizerSidebar/selectDownArrow.svg");
+            background-size: 100% 100%;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            width: 1em;
+            height: 1em;
+        }
+    }
+
+    .selectorOptionsList,
+    .selectorOptionsListHidden {
+        margin-top: 8px;
+        transition: 0.3s;
+
+        .selectorOption {
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            padding: 6px;
+            border-bottom: 1px solid rgba($color: $green-color, $alpha: 0.4);
+            opacity: 1;
+            height: auto;
+            transition: 0.3s;
+
+            &:hover {
+                color: $green-color;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    .selectorOptionsListHidden {
+        margin-top: 0;
+
+        .selectorOption {
+            opacity: 0;
+            height: 0;
+            padding: 0 6px;
+            border-bottom: none;
+        }
+    }
+}
+
+.gameImage {
+    width: 100%;
+    height: 60px;
+    content: "";
+    margin-bottom: 10px;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.fpsInfoBlock {
+    .progressBar {
+        height: 1.15em;
+        position: relative;
+        text-align: center;
+        font-size: 0.9em;
+        font-weight: bold;
+        background-color: white;
+        margin-bottom: 8px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .progress {
+            position: absolute;
+            height: 100%;
+            max-width: 100%;
+            top: 0;
+            left: 0;
+            background-color: $green-color;
+            // z-index: 10;
+        }
+
+        span {
+            position: absolute;
+            width: 100%;
+            top: 2px;
+            left: 0;
+            text-align: center;
+            font-size: 0.9em;
+            // z-index: 11;
+        }
+    }
+}
+
+.productInfo {
+    max-height: calc(100vh - 80px - 57px - 150px - 20px - 60px - 20px);
+    overflow-y: auto;
+
+    .productName {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 10px;
+
+        span {
+            color: $green-color;
+        }
+    }
+
+    .productImageWrapper {
+        position: relative;
+        width: 50%;
+        padding-bottom: 50%;
+        margin: 0 auto 20px;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    .customInfo {
+        margin-bottom: 10px;
+
+        .customInfoItem {
+            display: flex;
+            align-items: center;
+            padding: 4px 8px;
+            border-top: 1px solid rgba($color: $green-color, $alpha: 0.4);
+
+            .customInfoItemWrapper {
+                flex-shrink: 0;
+                width: 32px;
+                height: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 12px;
+            }
+        }
+    }
+}
+
+.toBasketButtonBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    margin-top: 20px;
+
+    button {
+        flex-grow: 1;
+        font-size: 1em;
+        padding: 10px 40px;
+    }
+
+    span {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: $green-color;
+        margin-left: 30px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .sidebar {
+        width: 100%;
+    }
+
+    .productInfo {
+        max-height: calc(100vh - 150px - 60px - 40px - 40px) !important;
+    }
+
+    .productImageWrapper {
+        width: 320px !important;
+        padding-bottom: 320px !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .productImageWrapper {
+        width: 80% !important;
+        padding-bottom: 80% !important;
+    }
+}
