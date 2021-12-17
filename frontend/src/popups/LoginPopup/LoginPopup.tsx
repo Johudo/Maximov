@@ -71,7 +71,7 @@ export default function LoginPopup() {
                         required: "Имя пользователя - обязательное поле",
                     })}
                     className={styles.input}
-                    error={errors.email}
+                    error={errors.login}
                 />
 
                 <Input

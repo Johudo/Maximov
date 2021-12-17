@@ -101,6 +101,7 @@ export default function RegisterPopup() {
     };
 
     const registerUser = async (data: {
+        login: string;
         first_name: string;
         last_name: string;
         email: string;
@@ -115,9 +116,8 @@ export default function RegisterPopup() {
             return;
         }
 
-        console.log(data);
-
         const result = await AuthAPI.register({
+            login: data.login,
             first_name: data.first_name,
             last_name: data.last_name,
             email: data.email,
@@ -152,6 +152,15 @@ export default function RegisterPopup() {
                 onChange={() => clearErrors(["equalPasswords"])}
                 className={styles.form}
             >
+                <Input
+                    type="text"
+                    placeholder={"Имя пользователя"}
+                    error={errors.login}
+                    {...register("login", {
+                        required: "Имя пользователя - обязательное поле",
+                    })}
+                />
+
                 <Input
                     type="text"
                     placeholder={EMAIL_PLACEHOLDER}

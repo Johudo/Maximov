@@ -22,7 +22,7 @@ export default function ProductDetails(props: ProductDetailsProps) {
             </div>
 
             <div className={styles.price}>
-                Цена <span>{"€ " + (props.product ? props.product.price : 0)}</span>{" "}
+                Цена <span>{props.product ? props.product.price : 0} ₽</span>
             </div>
 
             <div className={styles.quantity}>

@@ -58,6 +58,19 @@
     }
 }
 
+.formBlock {
+    padding: 20px 30px 0;
+
+    & > *:not(:last-child) {
+        margin-bottom: 4px;
+    }
+
+    .formTitle {
+        font-size: 1em;
+        margin-bottom: 12px;
+    }
+}
+
 @media (max-width: 1000px) {
     .productsList {
         max-height: none;

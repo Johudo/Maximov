@@ -5,7 +5,7 @@ import PageWrapper from "../../components/PageWrapper";
 import { IState, wrapper } from "../../store";
 import { AuthStartUp } from "../../utils/AuthStartUp";
 import { BasketStartUp } from "../../utils/BasketStartUp";
-import styles from "../styles/pages/ProfilePage.module.scss";
+import styles from "../../styles/pages/ProfilePage.module.scss";
 import ProfileNavbar from "../../components/ProfileNavbar";
 import { useSelector } from "react-redux";
 import ProfileOrdersList from "../../components/ProfileOrdersList";

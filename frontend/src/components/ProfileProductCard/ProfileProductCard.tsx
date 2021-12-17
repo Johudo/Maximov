@@ -7,13 +7,13 @@ export default function ProfileProductCard(props: ProfileProductCardProps) {
     return (
         <a href={`/product/${props.product.id}`} className={styles.card}>
             <div className={styles.imageWrapper}>
-                <img src={gamePCImage.src} className={styles.image} alt={props.product.title} />
+                <img src={gamePCImage.src} className={styles.image} alt={props.product.name} />
             </div>
 
             <div className={styles.rightBlock}>
                 <div className={styles.cardCompany}>SCREENON</div>
-                <h4 className={styles.cardTitle}>{props.product.title}</h4>
-                <p className={styles.cardPrice}>€ {props.product.price}</p>
+                <h4 className={styles.cardTitle}>{props.product.name}</h4>
+                <p className={styles.cardPrice}>{props.product.price} ₽</p>
             </div>
         </a>
     );

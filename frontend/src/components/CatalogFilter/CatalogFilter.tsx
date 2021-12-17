@@ -124,8 +124,8 @@ export default function CatalogFilter(props: CatalogFilterProps) {
                 </div>
 
                 <div className={styles.ranges}>
-                    <p className={styles.minRange}>€ {minPriceState}</p>
-                    <p className={styles.maxRange}>€ {maxPriceState}</p>
+                    <p className={styles.minRange}>{minPriceState} ₽</p>
+                    <p className={styles.maxRange}>{maxPriceState} ₽</p>
                 </div>
             </div>
 

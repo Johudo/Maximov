@@ -10,4 +10,11 @@ export type Product = {
     type: ProductType;
     provider: null;
     country: null;
+
+    characteristics: [
+        {
+            name: string;
+            value: string;
+        }
+    ];
 };

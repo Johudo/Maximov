@@ -5,18 +5,37 @@ import { IState } from "../../store";
 import { BasketActionCreator } from "../../store/actionCreators/basketActionCreator";
 import Button from "../Button";
 import BasketItemCard from "../BasketItemCard";
+import { PaymentTypeEnumArray } from "../../enums/PaymentTypeEnum";
+import RadioInput from "../RadioInput";
+import { useForm } from "react-hook-form";
 
 export default function Basket() {
     const basketState = useSelector((state: IState) => state.basket.products);
 
     const dispatch = useDispatch();
 
-    function closeBasketCallback() {
-        dispatch(BasketActionCreator.toggleBasket());
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    async function onSubmit(data: any) {
+        console.log(data);
+
+        // const result = await OrderAPI.createOrder(data);
+
+        // if (result.status !== 201) {
+        //     console.log(result);
+        //     return;
+        // }
+
+        // dispatch(BasketActionCreator.clearBasket());
+        // location.assign("/profile");
     }
 
     return (
-        <div className={styles.basket} onClick={(event) => event.stopPropagation()}>
+        <form className={styles.basket} onClick={(event) => event.stopPropagation()} onSubmit={handleSubmit(onSubmit)}>
             <h3 className={styles.title}>Корзина</h3>
 
             <div className={styles.productsList}>
@@ -28,26 +47,34 @@ export default function Basket() {
             <div className={styles.totalBlock}>
                 <div className={styles.totalTitle}>Итого: </div>
                 <div className={styles.totalPrice}>
-                    €{" "}
                     {basketState
                         .reduce((sum, current) => sum + current.count * Number(current.product.price), 0)
-                        .toFixed(2)}
+                        .toFixed(2)}{" "}
+                    ₽
                 </div>
+            </div>
+
+            <div className={styles.formBlock}>
+                <h4 className={styles.formTitle}>Оплата</h4>
+
+                {PaymentTypeEnumArray.map((type) => (
+                    <RadioInput
+                        key={`PaymentTypeRadio__${type.type}`}
+                        id={type.type}
+                        value={type.type}
+                        label={type.text}
+                        {...register("payment", {
+                            required: "Оплата - обязательное поле",
+                        })}
+                    />
+                ))}
             </div>
 
             {basketState.length > 0 && (
                 <div className={styles.buttonsBlock}>
-                    <Button
-                        className={styles.toCheckoutButton}
-                        onClick={() => {
-                            closeBasketCallback();
-                            location.assign("/ordering");
-                        }}
-                    >
-                        Оформить заказ
-                    </Button>
+                    <Button className={styles.toCheckoutButton}>Оформить заказ</Button>
                 </div>
             )}
-        </div>
+        </form>
     );
 }

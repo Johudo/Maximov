@@ -1,4 +1,7 @@
 from rest_framework import serializers
+from products.serializers.nested import (
+    ProductСharacteristicNestedSerializer,
+)
 from products.models import ProductType, Product
 
 
@@ -10,9 +13,13 @@ class ProductTypeListSerializer(serializers.ModelSerializer):
 
 
 class ProductListSerializer(serializers.ModelSerializer):
+    characteristics = ProductСharacteristicNestedSerializer(
+        many=True, source="product_characteristic"
+    )
+
     class Meta:
         model = Product
-        fields = (
+        fields = [
             "id",
             "сreation_year",
             "price",
@@ -21,9 +28,9 @@ class ProductListSerializer(serializers.ModelSerializer):
             "provider",
             "country",
             "image",
-        )
+            "characteristics",
+        ]
         depth = 1
-
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
@@ -40,4 +47,3 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "image",
         )
         depth = 1
-

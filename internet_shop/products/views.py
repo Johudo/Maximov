@@ -3,7 +3,11 @@ from rest_framework import generics
 from rest_framework.permissions import AllowAny
 
 from products.models import Product, ProductType
-from products.serializers import ProductTypeListSerializer, ProductListSerializer, ProductDetailSerializer
+from products.serializers.common import (
+    ProductTypeListSerializer,
+    ProductListSerializer,
+    ProductDetailSerializer,
+)
 
 # Create your views here.
 

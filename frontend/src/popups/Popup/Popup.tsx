@@ -10,15 +10,11 @@ import { PopupActionCreator } from "../../store/actionCreators/popupActionCreato
 
 const LoginPopup = dynamic(() => import("../LoginPopup"));
 const RegisterPopup = dynamic(() => import("../RegisterPopup"));
-const ResetPasswordPopup = dynamic(() => import("../ResetPasswordPopup"));
-const ResetPasswordConfirmPopup = dynamic(() => import("../ResetPasswordConfirmPopup"));
 const InfoPopup = dynamic(() => import("../InfoPopup"));
 
 const popupsList = [
     { type: PopupTypeEnum.login, component: LoginPopup },
     { type: PopupTypeEnum.register, component: RegisterPopup },
-    { type: PopupTypeEnum.resetPassword, component: ResetPasswordPopup },
-    { type: PopupTypeEnum.resetPasswordIConfirm, component: ResetPasswordConfirmPopup },
     {
         type: PopupTypeEnum.confirmEmailInfo,
         component: () => {
@@ -26,7 +22,7 @@ const popupsList = [
             return (
                 <InfoPopup
                     title="Вы зарегистрированы"
-                    description="Чтобы продолжить подтвердите свой Email и войдите в свой аккаунт"
+                    description="Войдите в свой аккаунт"
                     buttonOnClick={() => dispatch(PopupActionCreator.openPopup(PopupTypeEnum.login))}
                 />
             );

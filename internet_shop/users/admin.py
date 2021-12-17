@@ -1,13 +1,7 @@
 from django.contrib import admin
 
 from users.admins.inlines import OrderProductsInlineAdmin
-from users.models import PaymentType, User, Order, OrderProducts, Bonus
-
-
-@admin.register(PaymentType)
-class PaymentTypeAdmin(admin.ModelAdmin):
-    list_display = ["id", "name"]
-    fields = ["name"]
+from users.models import User, Order, OrderProducts, Bonus
 
 
 @admin.register(User)
@@ -16,7 +10,8 @@ class UserAdmin(admin.ModelAdmin):
         "id",
         "login",
         "email",
-        "password",
+        "first_name",
+        "last_name",
         "phone",
         "birthday",
         "is_active",
@@ -25,6 +20,8 @@ class UserAdmin(admin.ModelAdmin):
     fields = [
         "login",
         "email",
+        "first_name",
+        "last_name",
         "phone",
         "birthday",
         "is_active",
@@ -36,8 +33,8 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderProductsInlineAdmin]
-    list_display = ["id", "date", "time", "user", "payment_type", "storage"]
-    fields = ["date", "time", "user", "payment_type", "storage"]
+    list_display = ["id", "datetime", "user", "payment_type", "storage"]
+    fields = ["datetime", "user", "payment_type", "storage"]
 
 
 @admin.register(OrderProducts)

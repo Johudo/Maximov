@@ -4,23 +4,6 @@ import { defaultUserState, UserState } from "../states/UserState";
 
 export default function userReducer(state: UserState = defaultUserState, action: AnyAction) {
     switch (action.type) {
-        case UserActionsEnum.REGISTER_SUCCESS:
-            return {
-                ...state,
-                register_success: true,
-            };
-
-        case UserActionsEnum.REGISTER_FAIL:
-            return {
-                ...state,
-            };
-
-        case UserActionsEnum.RESET_REGISTER_SUCCESS:
-            return {
-                ...state,
-                register_success: false,
-            };
-
         case UserActionsEnum.LOGIN_SUCCESS:
             return {
                 ...state,
@@ -81,18 +64,6 @@ export default function userReducer(state: UserState = defaultUserState, action:
                 ...state,
                 isAuthenticated: false,
                 userInfo: null,
-            };
-
-        case UserActionsEnum.SET_AUTH_LOADING:
-            return {
-                ...state,
-                loading: true,
-            };
-
-        case UserActionsEnum.REMOVE_AUTH_LOADING:
-            return {
-                ...state,
-                loading: false,
             };
 
         default:

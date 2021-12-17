@@ -34,9 +34,9 @@ export default function ProfileOrdersList() {
             {/* {usersOrdersState.map((item, index) => {
                 return <ProfileOrder order={item} key={"users-order__" + index} />;
             })} */}
+            {/* <ProfileOrder order={order} />
             <ProfileOrder order={order} />
-            <ProfileOrder order={order} />
-            <ProfileOrder order={order} />
+            <ProfileOrder order={order} /> */}
         </div>
     );
 }

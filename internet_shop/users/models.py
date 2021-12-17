@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from users.choises import PAYMENT_TYPE, PAYMENT_TYPE__CASH_UPON_RECEIPT
 from products.models import Storage, Product
+from django.utils.timezone import now
 
 
 class CustomUserManager(BaseUserManager):
@@ -9,16 +11,18 @@ class CustomUserManager(BaseUserManager):
     for authentication instead of usernames.
     """
 
-    def create_user(self, email, password, **extra_fields):
-        if not email:
-            raise ValueError("The Email must be set")
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+    def create_user(self, login, password, **extra_fields):
+        extra_fields.setdefault("is_active", True)
+
+        if not login:
+            raise ValueError("The login must be set")
+
+        user = self.model(login=login, **extra_fields)
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, login, password, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_active", True)
@@ -27,22 +31,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(("Superuser must have is_staff=True."))
         if extra_fields.get("is_superuser") is not True:
             raise ValueError(("Superuser must have is_superuser=True."))
-        return self.create_user(email, password, **extra_fields)
-
-
-class PaymentType(models.Model):
-
-    id = models.AutoField(primary_key=True, unique=True)
-    name = models.CharField(verbose_name="Вид оплаты", max_length=128, unique=True)
-
-    class Meta:
-        db_table = "payment_type"
-        ordering = ["id", "name"]
-        verbose_name = "Вид оплаты"
-        verbose_name_plural = "Виды оплаты"
-
-    def __str__(self):
-        return self.name
+        return self.create_user(login, password, **extra_fields)
 
 
 class User(AbstractUser):
@@ -54,8 +43,18 @@ class User(AbstractUser):
 
     id = models.AutoField(primary_key=True)
     login = models.CharField(verbose_name="Логин", max_length=128, unique=True)
-    email = models.EmailField(verbose_name="Email", max_length=256, unique=True, null=True, blank=True)
-    phone = models.CharField(verbose_name="Телефон", max_length=15, unique=True, null=True, blank=True)
+    email = models.EmailField(
+        verbose_name="Email", max_length=256, unique=True, null=True, blank=True
+    )
+    first_name = models.CharField(
+        verbose_name="Имя", max_length=128, null=True, blank=True
+    )
+    last_name = models.CharField(
+        verbose_name="Фамилия", max_length=128, null=True, blank=True
+    )
+    phone = models.CharField(
+        verbose_name="Телефон", max_length=15, unique=True, null=True, blank=True
+    )
     birthday = models.DateField(verbose_name="Дата рождения", null=True, blank=True)
 
     USERNAME_FIELD = "login"
@@ -76,19 +75,14 @@ class User(AbstractUser):
 class Order(models.Model):
 
     id = models.AutoField(primary_key=True, unique=True)
-    date = models.DateField(verbose_name="Дата")
-    time = models.TimeField(verbose_name="Время")
+    datetime = models.DateTimeField(verbose_name="Дата и время", default=now)
+    payment_type = models.CharField(
+        choices=PAYMENT_TYPE, max_length=20, default=PAYMENT_TYPE__CASH_UPON_RECEIPT
+    )
 
     user = models.ForeignKey(
         User,
         verbose_name="Покупатель",
-        on_delete=models.CASCADE,
-        related_name="orders",
-    )
-
-    payment_type = models.ForeignKey(
-        PaymentType,
-        verbose_name="Вид оплаты",
         on_delete=models.CASCADE,
         related_name="orders",
     )
@@ -102,7 +96,7 @@ class Order(models.Model):
 
     class Meta:
         db_table = "order"
-        ordering = ["id", "user", "date", "time", "payment_type", "storage"]
+        ordering = ["id", "user", "datetime", "payment_type", "storage"]
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
 

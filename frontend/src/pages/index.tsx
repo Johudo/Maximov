@@ -66,25 +66,25 @@ const CatalogPage: NextPage<CatalogPageProps> = (props: CatalogPageProps) => {
         },
     ];
 
-    useEffect(() => {
-        if (!Array.isArray(props.products) || props.products.length < 1) return;
+    // useEffect(() => {
+    //     if (!Array.isArray(props.products) || props.products.length < 1) return;
 
-        let newProductsList = [...sortList[selectedSortState].sort(props.products)];
+    //     let newProductsList = [...sortList[selectedSortState].sort(props.products)];
 
-        if (catalogProductFilter.price)
-            newProductsList = newProductsList.filter(
-                (product) =>
-                    Number(product.price) >= (catalogProductFilter?.price?.min || 0) &&
-                    Number(product.price) <= (catalogProductFilter?.price?.max || 1000000)
-            );
+    //     if (catalogProductFilter.price)
+    //         newProductsList = newProductsList.filter(
+    //             (product) =>
+    //                 Number(product.price) >= (catalogProductFilter?.price?.min || 0) &&
+    //                 Number(product.price) <= (catalogProductFilter?.price?.max || 1000000)
+    //         );
 
-        if (Array.isArray(catalogProductFilter.types) && catalogProductFilter.types.length > 0)
-            newProductsList = newProductsList.filter((product) =>
-                catalogProductFilter.types?.find((type: ProductType) => type.id === product.types)
-            );
+    //     if (Array.isArray(catalogProductFilter.types) && catalogProductFilter.types.length > 0)
+    //         newProductsList = newProductsList.filter((product) =>
+    //             catalogProductFilter.types?.find((type: ProductType) => type.id === product.types)
+    //         );
 
-        setShownCatalogProducts(newProductsList);
-    }, [selectedSortState, catalogProductFilter]);
+    //     setShownCatalogProducts(newProductsList);
+    // }, [selectedSortState, catalogProductFilter]);
 
     function getMinPrice() {
         if (Array.isArray(props.products) && props.products.length > 0)

@@ -19,7 +19,7 @@ export default function ProfileOrder(props: ProfileOrderProps) {
                     <div className={styles.orderId}>{"№" + props.order.id}</div>
                     <div className={styles.orderDate}>{props.order.date}</div>
                     <div className={styles.orderStatus}>{props.order.status}</div>
-                    <div className={styles.orderPrice}>{"€ " + props.order.totalPrice}</div>
+                    <div className={styles.orderPrice}>{"₽ " + props.order.totalPrice}</div>
                     <button className={styles.toggleOrderButton} onClick={toggleOrderInfo}>
                         {isInfoShownState ? "Свернуть" : "Показать"}
                     </button>

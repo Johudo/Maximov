@@ -8,7 +8,9 @@ from .utils import get_current_year, path_and_rename_announcement_image
 class Сharacteristic(models.Model):
 
     id = models.AutoField(primary_key=True, unique=True)
-    name = models.CharField(verbose_name="Название характиеристики", max_length=128, unique=True)
+    name = models.CharField(
+        verbose_name="Название характиеристики", max_length=128, unique=True
+    )
 
     class Meta:
         db_table = "characteristic"
@@ -38,7 +40,9 @@ class ProductType(models.Model):
 class Provider(models.Model):
 
     id = models.AutoField(primary_key=True, unique=True)
-    name = models.CharField(verbose_name="Название компании поставщика", max_length=128, unique=True)
+    name = models.CharField(
+        verbose_name="Название компании поставщика", max_length=128, unique=True
+    )
 
     class Meta:
         db_table = "provider"
@@ -157,7 +161,12 @@ class ProductСharacteristic(models.Model):
         verbose_name_plural = "Характеристики товаров"
 
     def __str__(self):
-        return "Продукт: " + str(self.product) + ", Характеристика: " + str(self.characteristic)
+        return (
+            "Продукт: "
+            + str(self.product)
+            + ", Характеристика: "
+            + str(self.characteristic)
+        )
 
 
 class ProductStorageCount(models.Model):

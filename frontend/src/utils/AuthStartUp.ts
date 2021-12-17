@@ -18,7 +18,7 @@ export const AuthStartUp = async (store: Store<IState, AnyAction>, { pathname, r
         }
 
         const apiResRefresh = await axios
-            .post(BACKEND_API_URL + "/api/token/refresh/", { refresh })
+            .post(BACKEND_API_URL + "/token/refresh/", { refresh })
             .then((res: AxiosResponse<{}>) => res)
             .catch((err: AxiosError) => err.response as AxiosResponse);
 
@@ -30,7 +30,7 @@ export const AuthStartUp = async (store: Store<IState, AnyAction>, { pathname, r
         res?.setHeader("Set-Cookie", [NextAPIUtils.serializeAccessCookie(apiResRefresh.data.access)]);
 
         const apiResUserInfo = await axios
-            .get(BACKEND_API_URL + "/auth/users/me/", {
+            .get(BACKEND_API_URL + "/api/users/me/", {
                 headers: { Authorization: `${JWT_AUTH_HEADER_PREFIX} ${apiResRefresh.data.access}` },
             })
             .then((res: AxiosResponse<UserInfoAPIData>) => res)
