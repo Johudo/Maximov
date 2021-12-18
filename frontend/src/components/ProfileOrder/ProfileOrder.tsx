@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRedo } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 import styles from "./ProfileOrder.module.scss";
 import { Order } from "../../types/Order";
 import ProfileProductCard from "../ProfileProductCard";

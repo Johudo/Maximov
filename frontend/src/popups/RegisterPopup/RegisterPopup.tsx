@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { AuthAPI } from "../../api/AuthAPI";
 import Button from "../../components/Button";
-import FormError from "../../components/FormError";
+import FormErrorsBlock from "../../components/FormErrorsBlock";
 import Input from "../../components/Input";
 import Preloader from "../../components/Preloader";
 import {
@@ -224,7 +224,7 @@ export default function RegisterPopup() {
                     {...register("confirmPassword")}
                 />
 
-                <FormError errors={errors} keyValue={"login-popup__error__"} />
+                <FormErrorsBlock errors={errors} />
 
                 <Button type="submit">Зарегистрироваться</Button>
 

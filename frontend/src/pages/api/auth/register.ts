@@ -1,11 +1,11 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
-import { BACKEND_API_URL } from "../../../../../config";
-import { AuthLoginAPIData } from "../../../../api/AuthAPI";
-import { NextAPIUtils } from "../../../../utils/NextAPIUtils";
-import cookie from "cookie";
+import { BACKEND_API_URL } from "../../../../config";
+import { AuthLoginAPIData } from "../../../api/AuthAPI";
+import { HeaderType } from "../../../types/HeaderType";
+import { NextAPIUtils } from "../../../utils/NextAPIUtils";
 
-export default async function registerNextAPI(req: NextApiRequest, res: NextApiResponse) {
+export default async function registerAPIPage(req: NextApiRequest, res: NextApiResponse) {
     const allowedRequestMethods: Array<string> = ["POST"];
 
     if (!NextAPIUtils.isRequestMethodAllowed(req, res, allowedRequestMethods)) {
@@ -13,10 +13,10 @@ export default async function registerNextAPI(req: NextApiRequest, res: NextApiR
     }
 
     try {
-        const defaultHeaders: any = NextAPIUtils.setDefaultHeader(req);
+        const defaultHeaders: HeaderType = NextAPIUtils.setDefaultHeader(req);
 
         const apiRes = await axios
-            .post(BACKEND_API_URL + "/register/", req.body, {
+            .post(BACKEND_API_URL + "/auth/register/", req.body, {
                 headers: defaultHeaders,
             })
             .then((res: AxiosResponse<AuthLoginAPIData>) => res)
@@ -27,8 +27,7 @@ export default async function registerNextAPI(req: NextApiRequest, res: NextApiR
         }
 
         if (apiRes.status === 401) {
-            console.log("Cookies", cookie.parse(req.headers.cookie ?? ""));
-            res.setHeader("Set-Cookie", "");
+            NextAPIUtils.removeCookie(res, ["access", "refresh"]);
             return res.status(401).json(apiRes.data);
         }
 

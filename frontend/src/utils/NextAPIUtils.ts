@@ -2,6 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { StatusCodes } from "http-status-codes";
 import cookie from "cookie";
 import { JWT_AUTH_HEADER_PREFIX } from "../../config";
+import { IncomingMessage } from "http";
+import Cookies from "js-cookie";
+import { HeaderType } from "../types/HeaderType";
 
 export const NextAPIUtils = {
     isRequestMethodAllowed,
@@ -10,6 +13,7 @@ export const NextAPIUtils = {
     serializeAccessCookie,
     serializeRefreshCookie,
     setDefaultHeader,
+    removeCookie,
 };
 
 function isRequestMethodAllowed(
@@ -17,7 +21,7 @@ function isRequestMethodAllowed(
     res: NextApiResponse,
     allowedRequestMethods: Array<string>
 ): boolean {
-    for (let index in allowedRequestMethods) {
+    for (const index in allowedRequestMethods) {
         if (req.method === allowedRequestMethods[index]) return true;
     }
 
@@ -51,11 +55,23 @@ function serializeRefreshCookie(refresh: string): string {
     });
 }
 
-function setDefaultHeader(req: NextApiRequest) {
-    const accessCookie = cookie.parse(req.headers.cookie ?? "").access || "";
+function setDefaultHeader(req?: NextApiRequest | IncomingMessage): HeaderType {
+    const accessCookie = cookie.parse(req?.headers?.cookie || "").access || Cookies.get("access") || "";
 
-    const headers: any = {};
+    const headers: HeaderType = {};
     if (accessCookie) headers["Authorization"] = `${JWT_AUTH_HEADER_PREFIX} ${accessCookie}`;
 
     return headers;
+}
+
+function removeCookie(res: NextApiResponse, cookies: Array<string>) {
+    res.setHeader(
+        "Set-Cookie",
+        cookies.map((name) =>
+            cookie.serialize(name, "", {
+                maxAge: -1,
+                path: "/",
+            })
+        )
+    );
 }

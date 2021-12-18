@@ -9,7 +9,7 @@ import styles from "../../styles/pages/ProductPage.module.scss";
 import { Product } from "../../types/Product";
 import { ProductAPI } from "../../api/ProductAPI";
 import ProductSlideShow from "../../components/ProductSlideShow";
-import ProductDescription from "../../components/ProductDescription";
+// import ProductDescription from "../../components/ProductDescription";
 import ProductDetails from "../../components/ProductDetails";
 
 const ProductPage: NextPage<ProductPageProps> = (props: ProductPageProps) => {
@@ -24,7 +24,7 @@ const ProductPage: NextPage<ProductPageProps> = (props: ProductPageProps) => {
                     <div className={styles.productSlideShow}>
                         <ProductSlideShow images={props.product ? [props.product.image] : [""]} />
                     </div>
-                    <ProductDescription product={props.product} withFeedback />
+                    {/* <ProductDescription product={props.product} withFeedback /> */}
                 </div>
                 <div
                     className={styles.rightColumn}
@@ -37,7 +37,7 @@ const ProductPage: NextPage<ProductPageProps> = (props: ProductPageProps) => {
                 <div className={styles.modilePage}>
                     <ProductSlideShow images={props.product ? [props.product.image] : [""]} />
                     <ProductDetails product={props.product} />
-                    <ProductDescription product={props.product} withFeedback />
+                    {/* <ProductDescription product={props.product} withFeedback /> */}
                 </div>
             </div>
         </PageWrapper>

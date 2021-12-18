@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faPhone, faSearch, faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faSearch, faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Header.module.scss";
 import logoImg from "../../../public/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";

@@ -2,10 +2,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import logoImg from "../../../public/images/logo.png";
-import { useDispatch } from "react-redux";
 import styles from "./Footer.module.scss";
 import Container from "../Container";
-import { useForm } from "react-hook-form";
 import Link from "next/link";
 
 export default function Footer() {

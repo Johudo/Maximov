@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import styles from "./ProductCard.module.scss";
 import { ProductCardProps } from "./ProductCardProps";

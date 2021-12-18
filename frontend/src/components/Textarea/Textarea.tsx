@@ -1,7 +1,7 @@
 import { TextareaProps } from "./TextareaProps";
 import styles from "./Textarea.module.scss";
 import React from "react";
-function Textarea(props: TextareaProps, ref: React.ForwardedRef<any>) {
+function Textarea(props: TextareaProps, ref: React.ForwardedRef<HTMLTextAreaElement>) {
     const { className, error, ...otherProps } = props;
 
     return (

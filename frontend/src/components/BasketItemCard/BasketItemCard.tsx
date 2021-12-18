@@ -1,7 +1,6 @@
 import React from "react";
 import { BasketItem } from "../../types/BasketItem";
 import ProductCounter from "../ProductCounter";
-import Link from "next/link";
 import styles from "./BasketItemCard.module.scss";
 
 export default function BasketItemCard(props: BasketItemCardProps) {

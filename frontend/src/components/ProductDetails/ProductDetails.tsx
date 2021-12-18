@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import styles from "./ProductDetails.module.scss";
 import { useDispatch } from "react-redux";
-import fbImg from "../../../public/images/productDetails/fb.png";
-import twImg from "../../../public/images/productDetails/tw.png";
-import googImg from "../../../public/images/productDetails/goog.png";
 import { BasketActionCreator } from "../../store/actionCreators/basketActionCreator";
 import ProductCounter from "../ProductCounter";
 import { Product } from "../../types/Product";

@@ -5,4 +5,5 @@ export interface RadioInputProps extends React.InputHTMLAttributes<HTMLInputElem
     label: string | (() => string) | ReactNode | (() => ReactNode);
     wrapperClassName?: string;
     labelClassName?: string;
+    type?: "radio";
 }

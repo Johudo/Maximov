@@ -5,14 +5,12 @@ import styles from "./PageWrapper.module.scss";
 import Header from "../Header";
 import Footer from "../Footer";
 import Popup from "../../popups/Popup";
-import Navbar from "../Navbar";
 import Basket from "../Basket";
 import { IState } from "../../store";
 import { useSelector } from "react-redux";
 
 export default function PageWrapper(props: PageWrapperProps) {
     const isBasketOpenState = useSelector((state: IState) => state.basket.isOpen);
-    const isNavbarShownState = useSelector((state: IState) => state.mobileNavbar.isOpen);
 
     return (
         <div className={styles.app}>

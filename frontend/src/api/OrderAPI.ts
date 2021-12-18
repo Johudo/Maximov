@@ -5,7 +5,7 @@ import { BACKEND_API_URL } from "../../config";
 import { PaymentTypeEnum } from "../enums/PaymentTypeEnum";
 import { Order } from "../types/Order";
 import { Product } from "../types/Product";
-import { APIUtils } from "../utils/APIUtils";
+import { NextAPIUtils } from "../utils/NextAPIUtils";
 
 export const OrderAPI = { createOrder, getOwnOrders };
 
@@ -14,7 +14,7 @@ function createOrder(data: {
     storage: number;
     order_products: Array<{ product: number; count: number }>;
 }) {
-    const defaultHeaders: any = APIUtils.setDefaultHeader();
+    const defaultHeaders: any = NextAPIUtils.setDefaultHeader();
 
     return axios
         .post(BACKEND_API_URL + "/api/orders/", data, { headers: defaultHeaders })
@@ -23,7 +23,7 @@ function createOrder(data: {
 }
 
 function getOwnOrders(req?: NextApiRequest | IncomingMessage) {
-    const defaultHeaders: any = APIUtils.setDefaultHeader(req);
+    const defaultHeaders: any = NextAPIUtils.setDefaultHeader(req);
 
     return axios
         .get(BACKEND_API_URL + "/api/orders/", { headers: defaultHeaders })

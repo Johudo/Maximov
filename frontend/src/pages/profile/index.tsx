@@ -10,7 +10,7 @@ import ProfileNavbar from "../../components/ProfileNavbar";
 import { useSelector } from "react-redux";
 import ProfileForm from "../../components/ProfileForm";
 
-const ProfilePage: NextPage<ProfilePageProps> = (props: ProfilePageProps) => {
+const ProfilePage: NextPage<ProfilePageProps> = () => {
     const isAuthenticated = useSelector((state: IState) => state.user.isAuthenticated);
 
     if (!isAuthenticated) return <ErrorPage statusCode={404} />;
@@ -32,6 +32,6 @@ ProfilePage.getInitialProps = wrapper.getInitialPageProps((store) => async (cont
     return {} as ProfilePageProps;
 });
 
-type ProfilePageProps = {};
+type ProfilePageProps = object;
 
 export default ProfilePage;

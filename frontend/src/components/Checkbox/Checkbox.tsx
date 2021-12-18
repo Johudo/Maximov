@@ -3,8 +3,8 @@ import styles from "./Checkbox.module.scss";
 import { CheckboxProps } from "./CheckboxProps";
 
 function Checkbox(
-    { className, wrapperClassName, labelClassName, label, id, type, ...otherProps }: CheckboxProps,
-    ref: React.ForwardedRef<any>
+    { className, wrapperClassName, labelClassName, label, id, ...otherProps }: CheckboxProps,
+    ref: React.ForwardedRef<HTMLInputElement>
 ) {
     return (
         <div className={[styles.checkboxWrapper, wrapperClassName].join(" ").trim()}>

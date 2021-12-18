@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./Basket.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../store";
@@ -15,11 +15,7 @@ export default function Basket() {
 
     const dispatch = useDispatch();
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+    const { register, handleSubmit } = useForm();
 
     async function onSubmit(data: { payment: PaymentTypeEnum }) {
         const newData = {

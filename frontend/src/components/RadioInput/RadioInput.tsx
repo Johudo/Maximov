@@ -3,8 +3,8 @@ import styles from "./RadioInput.module.scss";
 import { RadioInputProps } from "./RadioInputProps";
 
 function RadioInput(
-    { className, wrapperClassName, labelClassName, label, id, type, ...otherProps }: RadioInputProps,
-    ref: React.ForwardedRef<any>
+    { className, wrapperClassName, labelClassName, label, id, ...otherProps }: RadioInputProps,
+    ref: React.ForwardedRef<HTMLInputElement>
 ) {
     return (
         <div className={[styles.radioWrapper, wrapperClassName].join(" ").trim()}>

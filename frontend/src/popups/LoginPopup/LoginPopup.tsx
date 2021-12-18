@@ -5,7 +5,7 @@ import styles from "./LoginPopup.module.scss";
 import { PopupTypeEnum } from "../Popup/PopupTypeEnum";
 import { PopupActionCreator } from "../../store/actionCreators/popupActionCreator";
 import Preloader from "../../components/Preloader";
-import FormError from "../../components/FormError";
+import FormErrorsBlock from "../../components/FormErrorsBlock";
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from "../../constants/regexps";
 import {
     EMAIL_REGEXP_ERROR_MESSAGE,
@@ -88,7 +88,7 @@ export default function LoginPopup() {
                     error={errors.password}
                 />
 
-                <FormError errors={errors} keyValue={"login-popup__error__"} />
+                <FormErrorsBlock errors={errors} />
 
                 <Button type="submit">Войти</Button>
 

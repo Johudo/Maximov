@@ -1,7 +1,5 @@
 import React from "react";
-import { Product } from "../../types/Product";
-import Button from "../Button";
-import Textarea from "../Textarea";
+// import { Product } from "../../types/Product";
 import styles from "./ProductDescription.module.scss";
 
 const productInfo = {
@@ -14,7 +12,8 @@ const productInfo = {
     ],
 };
 
-export default function ProductDescription(props: ProductDescriptionProps) {
+// export default function ProductDescription(props: ProductDescriptionProps) {
+export default function ProductDescription() {
     return (
         <div className={styles.productDescription}>
             <h3 className={styles.mainTitle}>Характеристики</h3>
@@ -33,4 +32,4 @@ export default function ProductDescription(props: ProductDescriptionProps) {
     );
 }
 
-type ProductDescriptionProps = { product: Product; withFeedback?: boolean };
+// type ProductDescriptionProps = { product: Product; withFeedback?: boolean };

@@ -2,7 +2,7 @@ import { InputProps } from "./InputProps";
 import styles from "./Input.module.scss";
 import React from "react";
 
-function Input({ className, error, ...otherProps }: InputProps, ref: React.ForwardedRef<any>) {
+function Input({ className, error, ...otherProps }: InputProps, ref: React.ForwardedRef<HTMLInputElement>) {
     return (
         <input
             ref={ref}

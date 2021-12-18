@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { BACKEND_API_URL } from "../../config";
 import { User } from "../types/User";
-import { APIUtils } from "../utils/APIUtils";
+import { NextAPIUtils } from "../utils/NextAPIUtils";
 
 export const UserAPI = {
     getCurrenUserInfo,
@@ -11,7 +11,7 @@ export const UserAPI = {
 export interface UserInfoAPIData extends User {}
 
 function getCurrenUserInfo() {
-    const defaultHeaders: any = APIUtils.setDefaultHeader();
+    const defaultHeaders: any = NextAPIUtils.setDefaultHeader();
 
     return axios
         .get(BACKEND_API_URL + "/api/users/me/", { headers: defaultHeaders })
@@ -27,7 +27,7 @@ function updateCurrentUserInfo(data: {
     birthday?: string;
     phone?: string;
 }) {
-    const defaultHeaders: any = APIUtils.setDefaultHeader();
+    const defaultHeaders: any = NextAPIUtils.setDefaultHeader();
 
     return axios
         .patch(BACKEND_API_URL + "/api/users/me/", data, { headers: defaultHeaders })

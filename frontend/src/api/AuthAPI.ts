@@ -8,8 +8,8 @@ export const AuthAPI = {
     refreshToken: refreshTokenQuery,
 };
 
-export interface AuthLoginAPIData extends APIDataWithAccessToken, APIDataWithRefreshToken {}
-export interface AuthRefreshTokenAPIData extends APIDataWithAccessToken {}
+export type AuthLoginAPIData = APIDataWithAccessToken & APIDataWithRefreshToken;
+export type AuthRefreshTokenAPIData = APIDataWithAccessToken;
 
 interface APIDataWithAccessToken {
     access: string;
@@ -21,15 +21,15 @@ interface APIDataWithRefreshToken {
 
 function loginQuery(data: { login: string; password: string }) {
     return axios
-        .post(NEXT_API_URL + "/api/next/auth/login/", data)
+        .post(NEXT_API_URL + "/api/auth/login/", data)
         .then((res: AxiosResponse<AuthLoginAPIData>) => res)
-        .catch((err: AxiosError<any>) => err.response as AxiosResponse);
+        .catch((err: AxiosError<object>) => err.response as AxiosResponse);
 }
 
 function logoutQuery() {
     return axios
-        .get(NEXT_API_URL + "/api/next/auth/logout/")
-        .then((res: AxiosResponse<{}>) => res)
+        .get(NEXT_API_URL + "/api/auth/logout/")
+        .then((res: AxiosResponse<object>) => res)
         .catch((err: AxiosError) => err.response as AxiosResponse);
 }
 
@@ -42,14 +42,14 @@ function registerQuery(data: {
     re_password: string;
 }) {
     return axios
-        .post(NEXT_API_URL + "/api/next/auth/register/", data)
-        .then((res: AxiosResponse<{}>) => res)
+        .post(NEXT_API_URL + "/api/auth/register/", data)
+        .then((res: AxiosResponse<object>) => res)
         .catch((err: AxiosError) => err.response as AxiosResponse);
 }
 
 function refreshTokenQuery() {
     return axios
-        .get(NEXT_API_URL + "/api/next/auth/refresh/")
+        .get(NEXT_API_URL + "/api/auth/refresh/")
         .then((res: AxiosResponse<AuthRefreshTokenAPIData>) => res)
         .catch((err: AxiosError) => err.response as AxiosResponse);
 }

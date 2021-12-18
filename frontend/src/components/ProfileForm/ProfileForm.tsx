@@ -4,18 +4,9 @@ import { useSelector } from "react-redux";
 import { UserAPI } from "../../api/UserAPI";
 import { IState } from "../../store";
 import Button from "../Button";
-import FormError from "../FormError";
+import FormErrorsBlock from "../FormErrorsBlock";
 import Input from "../Input";
 import styles from "./ProfileForm.module.scss";
-
-const defaultRegisterErrors = [
-    {
-        field: "current_password",
-        serverMessage: "Invalid password.",
-        type: "Invalid password",
-        message: "Не правильный пароль",
-    },
-];
 
 export default function ProfileForm() {
     const userInfoState = useSelector((state: IState) => state.user.userInfo);
@@ -142,7 +133,7 @@ export default function ProfileForm() {
                 />
             </div>
 
-            <FormError errors={errors} keyValue="correct-account__form__" />
+            <FormErrorsBlock errors={errors} />
 
             <Button type="submit" className={styles.button}>
                 СОХРАНИТЬ
