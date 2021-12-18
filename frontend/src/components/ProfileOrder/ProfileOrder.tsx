@@ -20,30 +20,26 @@ export default function ProfileOrder(props: ProfileOrderProps) {
     }
 
     return (
-        <div className={styles.item}>
-            <div className={styles.order}>
-                <div className={styles.orderHeader}>
-                    <div>
-                        <span className={styles.greenText}>{"Заказ №" + props.order.id}</span>
-                        {" от " + prettyDatetime()}
-                    </div>
-                    <div className={styles.greenText}>{getOrderTotalPrice() + " ₽"}</div>
+        <div className={styles.order}>
+            <div className={styles.orderHeader}>
+                <div>
+                    <span className={styles.greenText}>{"Заказ №" + props.order.id}</span>
+                    {" от " + prettyDatetime()}
                 </div>
-
-                <div className={styles.orderInfo}>
-                    <div className={styles.ordersList}>
-                        {props.order.order_products.map((order_products, index) => (
-                            <ProfileProductCard
-                                product={order_products.product}
-                                count={order_products.count}
-                                key={`Profile_orders_${props.order.id}_${index}`}
-                            />
-                        ))}
-                    </div>
-                </div>
+                <div className={styles.greenText}>{getOrderTotalPrice() + " ₽"}</div>
             </div>
 
-            <FontAwesomeIcon icon={faRedo} className={styles.reuseOrder} />
+            <div className={styles.orderInfo}>
+                <div className={styles.ordersList}>
+                    {props.order.order_products.map((order_products, index) => (
+                        <ProfileProductCard
+                            product={order_products.product}
+                            count={order_products.count}
+                            key={`Profile_orders_${props.order.id}_${index}`}
+                        />
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }

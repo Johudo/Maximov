@@ -34,7 +34,6 @@ const CatalogPage: NextPage<CatalogPageProps> = (props: CatalogPageProps) => {
     const [mobileCatalogFilterShown, setMobileCatalogFilterShown] = useState(false);
     const [catalogSortShown, setCatalogSortShown] = useState(false);
     const [selectedSortState, setSelectedSortState] = useState<SortVariablesEnum>(SortVariablesEnum.sortByPriceUp);
-    const [isCatalogTableState, setIsCatalogTableState] = useState(false);
 
     const [shownCatalogProducts, setShownCatalogProducts] = useState<Product[]>(props.products);
     const [catalogProductFilter, setCatalogProductFilter] = useState<CatalogProductFilter>({});
@@ -66,25 +65,25 @@ const CatalogPage: NextPage<CatalogPageProps> = (props: CatalogPageProps) => {
         },
     ];
 
-    // useEffect(() => {
-    //     if (!Array.isArray(props.products) || props.products.length < 1) return;
+    useEffect(() => {
+        if (!Array.isArray(props.products) || props.products.length < 1) return;
 
-    //     let newProductsList = [...sortList[selectedSortState].sort(props.products)];
+        let newProductsList = [...sortList[selectedSortState].sort(props.products)];
 
-    //     if (catalogProductFilter.price)
-    //         newProductsList = newProductsList.filter(
-    //             (product) =>
-    //                 Number(product.price) >= (catalogProductFilter?.price?.min || 0) &&
-    //                 Number(product.price) <= (catalogProductFilter?.price?.max || 1000000)
-    //         );
+        if (catalogProductFilter.price)
+            newProductsList = newProductsList.filter(
+                (product) =>
+                    Number(product.price) >= (catalogProductFilter?.price?.min || 0) &&
+                    Number(product.price) <= (catalogProductFilter?.price?.max || 1000000)
+            );
 
-    //     if (Array.isArray(catalogProductFilter.types) && catalogProductFilter.types.length > 0)
-    //         newProductsList = newProductsList.filter((product) =>
-    //             catalogProductFilter.types?.find((type: ProductType) => type.id === product.types)
-    //         );
+        if (Array.isArray(catalogProductFilter.types) && catalogProductFilter.types.length > 0)
+            newProductsList = newProductsList.filter((product) =>
+                catalogProductFilter.types?.find((type: ProductType) => type.id === product.type.id)
+            );
 
-    //     setShownCatalogProducts(newProductsList);
-    // }, [selectedSortState, catalogProductFilter]);
+        setShownCatalogProducts(newProductsList);
+    }, [selectedSortState, catalogProductFilter]);
 
     function getMinPrice() {
         if (Array.isArray(props.products) && props.products.length > 0)
@@ -191,34 +190,13 @@ const CatalogPage: NextPage<CatalogPageProps> = (props: CatalogPageProps) => {
                                     ))}
                                 </ul>
                             </div>
-
-                            <div className={styles.catalogView}>
-                                <FontAwesomeIcon
-                                    icon={faList}
-                                    onClick={() => setIsCatalogTableState(false)}
-                                    className={
-                                        isCatalogTableState ? styles.catalogViewItem : styles.catalogViewItemSelected
-                                    }
-                                />
-                                <FontAwesomeIcon
-                                    icon={faTh}
-                                    onClick={() => setIsCatalogTableState(true)}
-                                    className={
-                                        !isCatalogTableState ? styles.catalogViewItem : styles.catalogViewItemSelected
-                                    }
-                                />
-                            </div>
                         </div>
                     </div>
 
-                    <div className={isCatalogTableState ? styles.productsListTable : styles.productsListLine}>
-                        {shownCatalogProducts.map((product, index) =>
-                            isCatalogTableState ? (
-                                <ProductCard product={product} key={"catalog-item-" + index} />
-                            ) : (
-                                <ProductCardLine product={product} key={"catalog-item-" + index} />
-                            )
-                        )}
+                    <div className={styles.productsListLine}>
+                        {shownCatalogProducts.map((product, index) => (
+                            <ProductCardLine product={product} key={"catalog-item-" + index} />
+                        ))}
                     </div>
                 </div>
             </div>

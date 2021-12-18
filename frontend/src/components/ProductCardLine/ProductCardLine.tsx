@@ -18,7 +18,7 @@ export default function ProductCardLine(props: ProductCardLineProps) {
 
             <div className={styles.infoBlock}>
                 <div className={styles.rightBlock}>
-                    <a href="/product" className={styles.catalogLink}>
+                    <a href={`/product/${props.product.id}/`} className={styles.catalogLink}>
                         <h2 className={styles.cardTitle}>{props.product.name}</h2>
                     </a>
 
