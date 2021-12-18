@@ -1,6 +1,6 @@
 import { ProductType } from "./ProductType";
 
-export type Product = {
+export type Product<TProvider = Provider, TCountry = Country, TCharacteristics = Characteristics> = {
     id: number;
     name: string;
     price: string;
@@ -8,13 +8,14 @@ export type Product = {
     image: string;
 
     type: ProductType;
-    provider: null;
-    country: null;
-
-    characteristics: [
-        {
-            name: string;
-            value: string;
-        }
-    ];
+    provider: TProvider;
+    country: TCountry;
+    characteristics: TCharacteristics;
 };
+
+type Provider = object;
+type Country = object;
+type Characteristics = Array<{
+    name: string;
+    value: string;
+}>;

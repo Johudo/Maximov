@@ -1,62 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import styles from "./CatalogFilter.module.scss";
-import firstImage from "../../../public/images/games/quizGame1.png";
-import secondImage from "../../../public/images/games/quizGame2.png";
-import thImage from "../../../public/images/games/quizGame3.png";
-import fourthImage from "../../../public/images/games/quizGame4.png";
-import fifthImage from "../../../public/images/games/quizGame5.png";
-import sixthImage from "../../../public/images/games/quizGame6.png";
-import sevImage from "../../../public/images/games/quizGame7.png";
-import eiImage from "../../../public/images/games/quizGame8.png";
 import { ProductType } from "../../types/ProductType";
 import { CatalogProductFilter } from "../../types/CatalogProductFilter";
 import Button from "../Button";
 import Checkbox from "../Checkbox";
-
-const gamesList = [
-    {
-        name: "1",
-        image: firstImage.src,
-        selected: false,
-    },
-    {
-        name: "2",
-        image: secondImage.src,
-        selected: false,
-    },
-    {
-        name: "3",
-        image: thImage.src,
-        selected: false,
-    },
-    {
-        name: "4",
-        image: fourthImage.src,
-        selected: false,
-    },
-    {
-        name: "5",
-        image: fifthImage.src,
-        selected: false,
-    },
-    {
-        name: "6",
-        image: sixthImage.src,
-        selected: false,
-    },
-    {
-        name: "7",
-        image: sevImage.src,
-        selected: false,
-    },
-    {
-        name: "8",
-        image: eiImage.src,
-        selected: false,
-    },
-];
 
 export default function CatalogFilter(props: CatalogFilterProps) {
     const [minPriceState, setMinPriceState] = useState(100);

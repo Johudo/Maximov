@@ -34,7 +34,7 @@ const CatalogPage: NextPage<CatalogPageProps> = (props: CatalogPageProps) => {
     const [mobileCatalogFilterShown, setMobileCatalogFilterShown] = useState(false);
     const [catalogSortShown, setCatalogSortShown] = useState(false);
     const [selectedSortState, setSelectedSortState] = useState<SortVariablesEnum>(SortVariablesEnum.sortByPriceUp);
-    const [isCatalogTableState, setIsCatalogTableState] = useState(true);
+    const [isCatalogTableState, setIsCatalogTableState] = useState(false);
 
     const [shownCatalogProducts, setShownCatalogProducts] = useState<Product[]>(props.products);
     const [catalogProductFilter, setCatalogProductFilter] = useState<CatalogProductFilter>({});

@@ -1,4 +1,4 @@
-@import "../../styles/colors.scss";
+@use "../../styles/colors.scss";
 
 .catalogFilter {
     background: white;
@@ -32,7 +32,7 @@
 
     .screenSizeButton {
         background-color: transparent;
-        color: $green-color;
+        color: colors.$green-color;
     }
 }
 
@@ -70,7 +70,7 @@
                 align-items: center;
                 width: 28px;
                 height: 28px;
-                background-color: $green-color;
+                background-color: colors.$green-color;
                 border-radius: 50%;
                 box-shadow: 0px 4px 20px white;
 
@@ -120,7 +120,7 @@
             -webkit-appearance: none;
             height: 100%;
             position: absolute;
-            background: #a1d55d;
+            background: colors.$green-color;
             outline: none;
             width: 100%;
 
@@ -129,7 +129,7 @@
                 appearance: none;
                 width: 15px;
                 height: 15px;
-                background: #a1d55d;
+                background: colors.$green-color;
                 cursor: pointer;
                 border-radius: 100px;
 

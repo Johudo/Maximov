@@ -1,4 +1,4 @@
-@import "../../styles/colors.scss";
+@use "../../styles/colors.scss";
 
 .item {
     display: flex;
@@ -17,44 +17,17 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
         text-align: center;
-
-        .orderId,
-        .toggleOrderButton,
-        .orderPrice {
-            color: $green-color;
-            font-weight: bold;
-        }
-
-        .orderDate,
-        .orderId,
-        .orderPrice,
-        .toggleOrderButton {
-            width: 80px;
-        }
-
-        .orderStatus {
-            width: 200px;
-        }
     }
 
     .orderInfo {
         margin-top: 24px;
-
-        .trackInfo {
-            margin-top: 10px;
-            font-weight: bold;
-
-            span {
-                color: $green-color;
-            }
-        }
     }
 }
 
 .reuseOrder {
     font-size: 32px;
-    color: $green-color;
     margin-left: 20px;
     margin-top: 10px;
     cursor: pointer;
@@ -68,6 +41,11 @@
     margin-bottom: 20px;
 }
 
+.greenText {
+    color: colors.$green-color;
+    font-weight: bold;
+}
+
 @media (max-width: 880px) {
     .item {
         flex-direction: column;
@@ -76,45 +54,6 @@
 
     .order {
         width: 100%;
-    }
-
-    .orderId {
-        order: 1;
-    }
-
-    .orderStatus {
-        order: 2;
-    }
-
-    .orderDate {
-        order: 3;
-    }
-
-    .orderPrice {
-        order: 3;
-    }
-
-    .toggleOrderButton {
-        order: 5;
-        width: 100% !important;
-    }
-
-    .orderId,
-    .orderDate {
-        text-align: left;
-    }
-
-    .orderStatus,
-    .orderPrice {
-        text-align: right;
-    }
-
-    .orderId,
-    .orderStatus,
-    .orderDate,
-    .orderPrice {
-        width: calc(50% - 20px) !important;
-        margin-bottom: 10px;
     }
 
     .orderHeader {
@@ -129,21 +68,6 @@
 @media (max-width: 460px) {
     .orderHeader {
         display: block !important;
-    }
-
-    .orderDate,
-    .orderId,
-    .orderPrice,
-    .toggleOrderButton,
-    .orderStatus {
-        width: 100% !important;
-        margin: 0;
-        margin-bottom: 12px;
-        text-align: center;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
     }
 
     .ordersList {

@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django_resized import ResizedImageField
 
-from .utils import get_current_year, path_and_rename_announcement_image
+from .utils import get_current_year, path_and_rename_products_images
 
 
 class Сharacteristic(models.Model):
@@ -97,10 +97,10 @@ class Product(models.Model):
 
     image = ResizedImageField(
         verbose_name="Фото",
-        size=[1920, 1080],
+        size=[1000, 1000],
         quality=100,
         crop=["middle", "center"],
-        upload_to=path_and_rename_announcement_image,
+        upload_to=path_and_rename_products_images,
         default="default-product.jpg",
     )
 

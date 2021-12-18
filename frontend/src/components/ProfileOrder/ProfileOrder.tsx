@@ -4,42 +4,43 @@ import { faRedo } from "@fortawesome/free-solid-svg-icons";
 import styles from "./ProfileOrder.module.scss";
 import { Order } from "../../types/Order";
 import ProfileProductCard from "../ProfileProductCard";
+import { Product } from "../../types/Product";
 
 export default function ProfileOrder(props: ProfileOrderProps) {
-    const [isInfoShownState, setIsInfoShownState] = useState(false);
+    function getOrderTotalPrice() {
+        return props.order.order_products.reduce(
+            (totalPrice, product) => totalPrice + product.count * Number(product.product.price),
+            0
+        );
+    }
 
-    function toggleOrderInfo() {
-        setIsInfoShownState(!isInfoShownState);
+    function prettyDatetime() {
+        const date = new Date(Date.parse(props.order.datetime));
+        return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
     }
 
     return (
         <div className={styles.item}>
             <div className={styles.order}>
                 <div className={styles.orderHeader}>
-                    <div className={styles.orderId}>{"№" + props.order.id}</div>
-                    <div className={styles.orderDate}>{props.order.date}</div>
-                    <div className={styles.orderStatus}>{props.order.status}</div>
-                    <div className={styles.orderPrice}>{"₽ " + props.order.totalPrice}</div>
-                    <button className={styles.toggleOrderButton} onClick={toggleOrderInfo}>
-                        {isInfoShownState ? "Свернуть" : "Показать"}
-                    </button>
+                    <div>
+                        <span className={styles.greenText}>{"Заказ №" + props.order.id}</span>
+                        {" от " + prettyDatetime()}
+                    </div>
+                    <div className={styles.greenText}>{getOrderTotalPrice() + " ₽"}</div>
                 </div>
 
-                {isInfoShownState ? (
-                    <div className={styles.orderInfo}>
-                        <div className={styles.ordersList}>
-                            {props.order.products.map((product, index) => (
-                                <ProfileProductCard
-                                    product={product}
-                                    key={`Profile_orders_${props.order.id}_${index}`}
-                                />
-                            ))}
-                        </div>
-                        <div className={styles.trackInfo}>
-                            Трек-номер: <span>{props.order.track}</span>
-                        </div>
+                <div className={styles.orderInfo}>
+                    <div className={styles.ordersList}>
+                        {props.order.order_products.map((order_products, index) => (
+                            <ProfileProductCard
+                                product={order_products.product}
+                                count={order_products.count}
+                                key={`Profile_orders_${props.order.id}_${index}`}
+                            />
+                        ))}
                     </div>
-                ) : null}
+                </div>
             </div>
 
             <FontAwesomeIcon icon={faRedo} className={styles.reuseOrder} />
@@ -47,4 +48,4 @@ export default function ProfileOrder(props: ProfileOrderProps) {
     );
 }
 
-type ProfileOrderProps = { order: Order };
+type ProfileOrderProps = { order: Order<Product<unknown, unknown, unknown>> };

@@ -5,9 +5,10 @@ import { IState } from "../../store";
 import { BasketActionCreator } from "../../store/actionCreators/basketActionCreator";
 import Button from "../Button";
 import BasketItemCard from "../BasketItemCard";
-import { PaymentTypeEnumArray } from "../../enums/PaymentTypeEnum";
+import { PaymentTypeEnum, PaymentTypeEnumArray } from "../../enums/PaymentTypeEnum";
 import RadioInput from "../RadioInput";
 import { useForm } from "react-hook-form";
+import { OrderAPI } from "../../api/OrderAPI";
 
 export default function Basket() {
     const basketState = useSelector((state: IState) => state.basket.products);
@@ -20,18 +21,28 @@ export default function Basket() {
         formState: { errors },
     } = useForm();
 
-    async function onSubmit(data: any) {
-        console.log(data);
+    async function onSubmit(data: { payment: PaymentTypeEnum }) {
+        const newData = {
+            payment_type: data.payment,
+            storage: 1,
+            order_products: basketState.map((basketItem) => {
+                return { product: basketItem.product.id, count: basketItem.count };
+            }),
+        };
 
-        // const result = await OrderAPI.createOrder(data);
+        console.log(newData);
+        console.log(JSON.stringify(newData));
 
-        // if (result.status !== 201) {
-        //     console.log(result);
-        //     return;
-        // }
+        const result = await OrderAPI.createOrder(newData);
 
-        // dispatch(BasketActionCreator.clearBasket());
-        // location.assign("/profile");
+        if (result.status !== 201) {
+            console.log(result);
+            alert("Ошибка");
+            return;
+        }
+
+        dispatch(BasketActionCreator.clearBasket());
+        location.assign("/profile");
     }
 
     return (

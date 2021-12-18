@@ -8,7 +8,8 @@ import { BasketStartUp } from "../../utils/BasketStartUp";
 import styles from "../../styles/pages/ProfilePage.module.scss";
 import ProfileNavbar from "../../components/ProfileNavbar";
 import { useSelector } from "react-redux";
-import ProfileOrdersList from "../../components/ProfileOrdersList";
+import ProfileOrder from "../../components/ProfileOrder";
+import { OrderAPI, OrderAPIGetOwnOrdersData } from "../../api/OrderAPI";
 
 const ProfilePage: NextPage<ProfilePageProps> = (props: ProfilePageProps) => {
     const isAuthenticated = useSelector((state: IState) => state.user.isAuthenticated);
@@ -19,7 +20,12 @@ const ProfilePage: NextPage<ProfilePageProps> = (props: ProfilePageProps) => {
         <PageWrapper>
             <div className={styles.page}>
                 <ProfileNavbar />
-                <ProfileOrdersList />
+
+                <div className={styles.ordersList}>
+                    {props.orders.map((order, index) => {
+                        return <ProfileOrder order={order} key={"users-order__" + index} />;
+                    })}
+                </div>
             </div>
         </PageWrapper>
     );
@@ -29,9 +35,11 @@ ProfilePage.getInitialProps = wrapper.getInitialPageProps((store) => async (cont
     await AuthStartUp(store, context);
     await BasketStartUp(store, context);
 
-    return {} as ProfilePageProps;
+    const ordersResult = await OrderAPI.getOwnOrders(context.req);
+
+    return { orders: ordersResult.status === 200 ? ordersResult.data : [] } as ProfilePageProps;
 });
 
-type ProfilePageProps = {};
+type ProfilePageProps = { orders: OrderAPIGetOwnOrdersData };
 
 export default ProfilePage;
