@@ -54,7 +54,7 @@ export default function Header() {
                         className={styles.inputBlock}
                         onSubmit={(event) => {
                             event.preventDefault();
-                            location.assign("/catalog?find=" + findInputState);
+                            location.assign("?name=" + findInputState);
                         }}
                     >
                         <Input

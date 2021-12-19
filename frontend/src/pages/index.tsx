@@ -13,7 +13,7 @@ import CatalogFilter from "../components/CatalogFilter";
 import { TypesAPI } from "../api/TypesAPI";
 import { ProductType } from "../types/ProductType";
 import ProductCardLine from "../components/ProductCardLine";
-import { ProductAPI } from "../api/ProductAPI";
+import { ProductAPI, ProductAPIGetProductsListParams } from "../api/ProductAPI";
 
 enum SortVariablesEnum {
     sortByPriceUp,
@@ -210,8 +210,11 @@ CatalogPage.getInitialProps = wrapper.getInitialPageProps((store) => async (cont
     let types: Array<ProductType> = [];
     let products: Array<Product> = [];
 
+    const getProductsParams: ProductAPIGetProductsListParams = {};
+    if (typeof context.query.name === "string") getProductsParams.name = context.query.name;
+
     const typesResult = await TypesAPI.getTypes();
-    const productResult = await ProductAPI.getProductsList();
+    const productResult = await ProductAPI.getProductsList(getProductsParams);
 
     if (typesResult.status === 200) {
         types = typesResult.data as Array<ProductType>;

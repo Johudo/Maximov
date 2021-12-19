@@ -8,12 +8,14 @@ function getProduct(id: number) {
     return axios
         .get(BACKEND_API_URL + `/products/${id}/`)
         .then((res: AxiosResponse<Product>) => res)
-        .catch((err: AxiosError<any>) => err.response as AxiosResponse);
+        .catch((err: AxiosError<Product>) => err.response as AxiosResponse);
 }
 
-function getProductsList() {
+function getProductsList(params?: ProductAPIGetProductsListParams) {
     return axios
-        .get(BACKEND_API_URL + "/products/")
+        .get(BACKEND_API_URL + "/products/", { params })
         .then((res: AxiosResponse<Array<Product>>) => res)
-        .catch((err: AxiosError<any>) => err.response as AxiosResponse);
+        .catch((err: AxiosError<Array<Product>>) => err.response as AxiosResponse);
 }
+
+export type ProductAPIGetProductsListParams = { name?: string };

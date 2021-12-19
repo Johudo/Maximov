@@ -1,8 +1,10 @@
 from rest_framework import generics, viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from django_filters import rest_framework as filters
 
 from users.models import Order
 from products.models import Product, ProductType
+from products.filters import ProductListFilter
 from products.serializers.common import (
     ProductTypeListSerializer,
     ProductListSerializer,
@@ -22,6 +24,8 @@ class ProductListView(generics.ListAPIView):
     serializer_class = ProductListSerializer
     queryset = Product.objects.all()
     permission_classes = (AllowAny,)
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = ProductListFilter
 
 
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):

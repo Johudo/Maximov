@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
+import django_filters
+from products.models import Product
 
 
 class InputFilterAdmin(admin.SimpleListFilter):
@@ -31,3 +33,11 @@ class NameFilter(InputFilterAdmin):
             return queryset
 
         return queryset.filter(name__icontains=value)
+
+
+class ProductListFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(lookup_expr="icontains")
+
+    class Meta:
+        model = Product
+        fields = ["name"]
