@@ -12,7 +12,6 @@ import { BasketActionCreator } from "../../store/actionCreators/basketActionCrea
 import Basket from "../Basket";
 import Input from "../Input";
 import Button from "../Button";
-import { MobileNavbarActionCreator } from "../../store/actionCreators/mobileNavbarActionCreator";
 import { useMedia } from "react-use";
 import { useRouter } from "next/router";
 
@@ -46,7 +45,6 @@ export default function Header() {
                         icon={faBars}
                         className={styles.bars}
                         onClick={(event) => {
-                            dispatch(MobileNavbarActionCreator.toggleMobileNavbar());
                             dispatch(BasketActionCreator.closeBasket());
                             event.stopPropagation();
                         }}
@@ -93,7 +91,6 @@ export default function Header() {
                         <div className={styles.basketBlock}>
                             <div
                                 onClick={(event) => {
-                                    dispatch(MobileNavbarActionCreator.closeMobileNavbar());
                                     dispatch(BasketActionCreator.toggleBasket());
                                     event.stopPropagation();
                                 }}
