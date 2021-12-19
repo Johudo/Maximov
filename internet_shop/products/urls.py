@@ -9,9 +9,9 @@ from products.views import (
 )
 
 urlpatterns = [
-    path("types/", ProductTypeListView.as_view()),
-    path("products/", ProductListView.as_view()),
-    path("products/<int:pk>/", ProductDetailView.as_view()),
+    path("api/types/", ProductTypeListView.as_view()),
+    path("api/products/", ProductListView.as_view()),
+    path("api/products/<int:pk>/", ProductDetailView.as_view()),
     path("api/orders/", OrderCreateView.as_view({"get": "list", "post": "create"})),
     path("api/storages/", StorageListView.as_view()),
     path("api/providers/", ProviderListView.as_view()),
