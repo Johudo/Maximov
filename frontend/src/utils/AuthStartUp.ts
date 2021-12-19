@@ -2,14 +2,14 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { NextPageContext } from "next";
 import { BACKEND_API_URL, JWT_AUTH_HEADER_PREFIX } from "../../config";
 import cookie from "cookie";
-import { AnyAction, Store } from "redux";
+import { Action, AnyAction, Store } from "redux";
 import { IState } from "../store";
 import { ThunkDispatch } from "redux-thunk";
 import { UserActionsEnum } from "../store/actions/userActions";
 import { NextAPIUtils } from "./NextAPIUtils";
 import { UserInfoAPIData } from "../api/UserAPI";
 
-export const AuthStartUp = async (store: Store<IState, AnyAction>, { pathname, req, res }: NextPageContext) => {
+export const AuthStartUp = async (store: Store<IState, AnyAction>, { req, res }: NextPageContext) => {
     try {
         const refresh = cookie.parse(req?.headers.cookie || "").refresh || "";
 
@@ -18,8 +18,8 @@ export const AuthStartUp = async (store: Store<IState, AnyAction>, { pathname, r
         }
 
         const apiResRefresh = await axios
-            .post(BACKEND_API_URL + "/token/refresh/", { refresh })
-            .then((res: AxiosResponse<{}>) => res)
+            .post(BACKEND_API_URL + "/api/token/refresh/", { refresh })
+            .then((res: AxiosResponse<object>) => res)
             .catch((err: AxiosError) => err.response as AxiosResponse);
 
         if (apiResRefresh.status !== 200) {
@@ -40,12 +40,14 @@ export const AuthStartUp = async (store: Store<IState, AnyAction>, { pathname, r
             throw Error;
         }
 
-        (store.dispatch as ThunkDispatch<IState, {}, any>)({
+        (store.dispatch as ThunkDispatch<IState, object, Action>)({
             type: UserActionsEnum.LOAD_USER_SUCCESS,
             payload: {
                 user: apiResUserInfo.data,
                 isAuthenticated: true,
             },
         });
-    } catch (err) {}
+    } catch (err) {
+        return;
+    }
 };

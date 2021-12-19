@@ -7,14 +7,14 @@ export const ProductAPI = { getProduct, getProductsList };
 
 function getProduct(id: number) {
     return axios
-        .get(BACKEND_API_URL + `/products/${id}/`)
+        .get(BACKEND_API_URL + `/api/products/${id}/`)
         .then((res: AxiosResponse<ProductAPIGetProductData>) => res)
         .catch((err: AxiosError<ProductAPIGetProductData>) => err.response as AxiosResponse);
 }
 
 function getProductsList(params?: ProductAPIGetProductsListParams) {
     return axios
-        .get(BACKEND_API_URL + "/products/", { params })
+        .get(BACKEND_API_URL + "/api/products/", { params })
         .then((res: AxiosResponse<ProductAPIGetProductsListData>) => res)
         .catch((err: AxiosError<ProductAPIGetProductsListData>) => err.response as AxiosResponse);
 }

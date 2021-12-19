@@ -6,7 +6,7 @@ export const TypesAPI = { getTypes };
 
 function getTypes() {
     return axios
-        .get(BACKEND_API_URL + "/types/")
+        .get(BACKEND_API_URL + "/api/types/")
         .then((res: AxiosResponse<Array<ProductType>>) => res)
-        .catch((err: AxiosError<any>) => err.response as AxiosResponse);
+        .catch((err: AxiosError<Array<ProductType>>) => err.response as AxiosResponse);
 }
