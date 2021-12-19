@@ -16,10 +16,12 @@
 }
 
 .customiserList .customiserItem {
-    margin-top: 1em;
-
     span {
         font-weight: bold;
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 4px;
     }
 }
 

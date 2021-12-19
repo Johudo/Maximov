@@ -1,6 +1,9 @@
+import { Characteristic } from "./Characteristic";
+import { Country } from "./Country";
+import { ProductProvider } from "./ProductProvider";
 import { ProductType } from "./ProductType";
 
-export type Product<TProvider = Provider, TCountry = Country, TCharacteristics = Characteristics> = {
+export type Product<TProvider = ProductProvider, TCountry = Country, TCharacteristics = Array<Characteristic>> = {
     id: number;
     name: string;
     price: string;
@@ -12,10 +15,3 @@ export type Product<TProvider = Provider, TCountry = Country, TCharacteristics =
     country: TCountry;
     characteristics: TCharacteristics;
 };
-
-type Provider = object;
-type Country = object;
-type Characteristics = Array<{
-    name: string;
-    value: string;
-}>;

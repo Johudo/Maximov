@@ -3,8 +3,9 @@ from products.serializers.nested import (
     ProductСharacteristicNestedSerializer,
     OrderProductsCreateNestedSerializer,
     OrderProductsListNestedSerializer,
+    ProductStorageCountNestedSerializer,
 )
-from products.models import ProductType, Product, ProductStorageCount
+from products.models import ProductType, Product, ProductStorageCount, Storage, Provider
 from users.models import Order, OrderProducts
 
 
@@ -37,6 +38,14 @@ class ProductListSerializer(serializers.ModelSerializer):
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
+    characteristics = ProductСharacteristicNestedSerializer(
+        many=True, source="product_characteristic"
+    )
+
+    storage_counts = ProductStorageCountNestedSerializer(
+        many=True, source="product_storage_count"
+    )
+
     class Meta:
         model = Product
         fields = (
@@ -48,6 +57,8 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "provider",
             "country",
             "image",
+            "characteristics",
+            "storage_counts",
         )
         depth = 1
 
@@ -92,3 +103,17 @@ class OrderListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ("id", "datetime", "payment_type", "storage", "order_products")
+
+
+class StorageListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Storage
+        fields = ["id", "address"]
+        depth = 1
+
+
+class ProviderListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Provider
+        fields = ["id", "name"]
+        depth = 1

@@ -4,15 +4,15 @@
     background-color: white;
     box-shadow: 0px 4px 30px rgba(black, 0.25);
     border-radius: 10px;
-    padding: 20px 0;
     z-index: 101;
     overflow: auto;
     color: black;
+
+    max-height: 600px;
 }
 
 .title {
-    margin-bottom: 20px;
-    padding: 0 30px;
+    margin-bottom: 0;
     font-size: 1.2em;
 }
 
@@ -24,7 +24,6 @@
 
 .totalBlock {
     background-color: #eeeeee;
-    padding: 12px 30px;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -40,7 +39,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 30px 0;
 
     .toBasketButton,
     .toCheckoutButton {
@@ -59,8 +57,6 @@
 }
 
 .formBlock {
-    padding: 20px 30px 0;
-
     & > *:not(:last-child) {
         margin-bottom: 4px;
     }
@@ -69,6 +65,24 @@
         font-size: 1em;
         margin-bottom: 12px;
     }
+
+    margin-bottom: 20px;
+}
+
+.basketBlock {
+    padding: 20px 30px;
+
+    &:first-child {
+        padding-top: 30px;
+    }
+
+    &:last-child {
+        padding-bottom: 30px;
+    }
+}
+
+.formErrors {
+    margin-bottom: 20px;
 }
 
 @media (max-width: 1000px) {
@@ -79,6 +93,7 @@
     .basket {
         background-color: white;
         box-shadow: none;
+        max-height: unset;
     }
 }
 

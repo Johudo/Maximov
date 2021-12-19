@@ -1,26 +1,89 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CatalogFilter.module.scss";
 import { ProductType } from "../../types/ProductType";
-import { CatalogProductFilter } from "../../types/CatalogProductFilter";
 import Button from "../Button";
 import Checkbox from "../Checkbox";
+import { ProductProvider } from "../../types/ProductProvider";
+import { TypesAPI } from "../../api/TypesAPI";
+import { ProvidersAPI } from "../../api/ProvidersAPI";
+import { useRouter } from "next/router";
 
 export default function CatalogFilter(props: CatalogFilterProps) {
-    const [minPriceState, setMinPriceState] = useState(100);
-    const [maxPriceState, setMaxPriceState] = useState(5000);
+    const router = useRouter();
 
-    const [isPriceRangeSet, setIsPriceRangeSet] = useState(false);
+    const [minPriceState, setMinPriceState] = useState<number>(
+        Number(router.query.min_price) || Number(props.price.min.toFixed(0)) || 0
+    );
+    const [maxPriceState, setMaxPriceState] = useState<number>(
+        Number(router.query.max_price) || Number(props.price.max.toFixed(0)) || 1
+    );
 
-    const [selectedTypes, setSelectedTypes] = useState<ProductType[]>([]);
+    const [selectedTypes, setSelectedTypes] = useState<{
+        [id: number]: boolean;
+    }>({});
+    const [selectedProviders, setSelectedProviders] = useState<{
+        [id: number]: boolean;
+    }>({});
+
+    const [types, setTypes] = useState<Array<ProductType>>([]);
+    const [providers, setProviders] = useState<Array<ProductProvider>>([]);
+
+    async function getTypes() {
+        const result = await TypesAPI.getTypes();
+
+        if (result.status === 200) {
+            setTypes(result.data);
+            return;
+        }
+
+        console.log(result);
+        alert("Ошибка загрузки типов товаров");
+    }
+
+    async function getProviders() {
+        const result = await ProvidersAPI.getProviders();
+
+        if (result.status === 200) {
+            setProviders(result.data);
+            return;
+        }
+
+        console.log(result);
+        alert("Ошибка загрузки производителей товаров");
+    }
 
     useEffect(() => {
-        if (isPriceRangeSet || !props.price.min || !props.price.max) return;
+        getTypes();
+        getProviders();
 
-        setMinPriceState(Number(props.price.min.toFixed(0)));
-        setMaxPriceState(Number(props.price.max.toFixed(0)));
+        if (typeof router.query.types === "string") {
+            const newSelectedTypes: {
+                [id: number]: boolean;
+            } = {};
 
-        setIsPriceRangeSet(true);
-    }, [props.price]);
+            (router.query.types as string)
+                .split(",")
+                .filter((query_type_id) => Number(query_type_id))
+                .forEach((query_type_id) => {
+                    newSelectedTypes[Number(query_type_id)] = true;
+                });
+            setSelectedTypes(newSelectedTypes);
+        }
+
+        if (typeof router.query.providers === "string") {
+            const newSelectedProviders: {
+                [id: number]: boolean;
+            } = {};
+
+            (router.query.providers as string)
+                .split(",")
+                .filter((query_provider_id) => Number(query_provider_id))
+                .forEach((query_provider_id) => {
+                    newSelectedProviders[Number(query_provider_id)] = true;
+                });
+            setSelectedProviders(newSelectedProviders);
+        }
+    }, []);
 
     return (
         <div className={styles.catalogFilter}>
@@ -80,7 +143,7 @@ export default function CatalogFilter(props: CatalogFilterProps) {
                 <h4 className={styles.title}>Тип продукта:</h4>
 
                 <div className={styles.processorCheckboxes}>
-                    {props.types.map((type, index) => {
+                    {types.map((type, index) => {
                         return (
                             <div
                                 key={"types__" + index}
@@ -94,14 +157,43 @@ export default function CatalogFilter(props: CatalogFilterProps) {
                                 <Checkbox
                                     id={"catalog-type-checkbox-" + index}
                                     label={type.name}
-                                    onChange={() => {
-                                        const foundIndex = selectedTypes.indexOf(type);
-                                        setSelectedTypes(
-                                            foundIndex > -1
-                                                ? selectedTypes.filter((selectedType) => selectedType.id !== type.id)
-                                                : [...selectedTypes, type]
-                                        );
+                                    onChange={(event) => {
+                                        const newSelectedTypes = selectedTypes;
+                                        newSelectedTypes[type.id] = event.target.checked;
+                                        setSelectedTypes({ ...newSelectedTypes });
                                     }}
+                                    checked={Boolean(selectedTypes[type.id])}
+                                />
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+
+            <div className={styles.filterBlock}>
+                <h4 className={styles.title}>Производитель:</h4>
+
+                <div className={styles.processorCheckboxes}>
+                    {providers.map((provider, index) => {
+                        return (
+                            <div
+                                key={"providers__" + index}
+                                className={styles.checkboxBlock}
+                                onClick={(event) =>
+                                    ((event.currentTarget.children[0] as HTMLInputElement).checked = !(
+                                        event.currentTarget.children[0] as HTMLInputElement
+                                    ).checked)
+                                }
+                            >
+                                <Checkbox
+                                    id={"catalog-provider-checkbox-" + index}
+                                    label={provider.name}
+                                    onChange={(event) => {
+                                        const newSelectedProviders = selectedProviders;
+                                        newSelectedProviders[provider.id] = event.target.checked;
+                                        setSelectedProviders({ ...newSelectedProviders });
+                                    }}
+                                    checked={Boolean(selectedProviders[provider.id])}
                                 />
                             </div>
                         );
@@ -113,15 +205,40 @@ export default function CatalogFilter(props: CatalogFilterProps) {
                 type="button"
                 className={styles.confirmButton}
                 onClick={() => {
-                    let newFilter: CatalogProductFilter = {};
-                    newFilter = { ...newFilter, price: { min: minPriceState, max: maxPriceState } };
+                    const newQuery: { [key: string]: string } = {};
+                    const arrayStringQuery: Array<string> = [];
 
-                    if (selectedTypes.length > 0) newFilter = { ...newFilter, types: selectedTypes };
+                    for (const typeID in selectedTypes) {
+                        if (!selectedTypes[typeID]) continue;
 
-                    props.setFilterProducts(newFilter);
+                        if (newQuery["types"]) newQuery["types"] += "," + typeID;
+                        else newQuery["types"] = typeID;
+                    }
+
+                    for (const providerID in selectedProviders) {
+                        if (!selectedProviders[providerID]) continue;
+
+                        if (newQuery["providers"]) newQuery["providers"] += "," + providerID;
+                        else newQuery["providers"] = providerID;
+                    }
+
+                    if (typeof router.query.name === "string") newQuery["name"] = router.query.name;
+
+                    newQuery["min_price"] = minPriceState.toFixed(0);
+                    newQuery["max_price"] = maxPriceState.toFixed(0);
+
+                    for (const key in newQuery) {
+                        arrayStringQuery.push(`${key}=${newQuery[key]}`);
+                    }
+
+                    location.assign(`${location.pathname}?${arrayStringQuery.join("&")}`);
                 }}
             >
                 Применить
+            </Button>
+
+            <Button type="button" className={styles.resetButton} onClick={() => location.assign(location.pathname)}>
+                Сбросить
             </Button>
         </div>
     );
@@ -132,8 +249,4 @@ type CatalogFilterProps = {
         min: number;
         max: number;
     };
-
-    setFilterProducts: (filter: CatalogProductFilter) => void;
-
-    types: Array<ProductType>;
 };

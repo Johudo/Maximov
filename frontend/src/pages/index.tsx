@@ -6,14 +6,11 @@ import { AuthStartUp } from "../utils/AuthStartUp";
 import { BasketStartUp } from "../utils/BasketStartUp";
 import styles from "../styles/pages/CatalogPage.module.scss";
 import { Product } from "../types/Product";
-import { CatalogProductFilter } from "../types/CatalogProductFilter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faFilter, faTimes } from "@fortawesome/free-solid-svg-icons";
 import CatalogFilter from "../components/CatalogFilter";
-import { TypesAPI } from "../api/TypesAPI";
-import { ProductType } from "../types/ProductType";
 import ProductCardLine from "../components/ProductCardLine";
-import { ProductAPI, ProductAPIGetProductsListParams } from "../api/ProductAPI";
+import { ProductAPI, ProductAPIGetProductsListData, ProductAPIGetProductsListParams } from "../api/ProductAPI";
 
 enum SortVariablesEnum {
     sortByPriceUp,
@@ -35,7 +32,6 @@ const CatalogPage: NextPage<CatalogPageProps> = (props: CatalogPageProps) => {
     const [selectedSortState, setSelectedSortState] = useState<SortVariablesEnum>(SortVariablesEnum.sortByPriceUp);
 
     const [shownCatalogProducts, setShownCatalogProducts] = useState<Product[]>(props.products);
-    const [catalogProductFilter, setCatalogProductFilter] = useState<CatalogProductFilter>({});
 
     const sortList = [
         {
@@ -66,51 +62,18 @@ const CatalogPage: NextPage<CatalogPageProps> = (props: CatalogPageProps) => {
 
     useEffect(() => {
         if (!Array.isArray(props.products) || props.products.length < 1) return;
-
-        let newProductsList = [...sortList[selectedSortState].sort(props.products)];
-
-        if (catalogProductFilter.price)
-            newProductsList = newProductsList.filter(
-                (product) =>
-                    Number(product.price) >= (catalogProductFilter?.price?.min || 0) &&
-                    Number(product.price) <= (catalogProductFilter?.price?.max || 1000000)
-            );
-
-        if (Array.isArray(catalogProductFilter.types) && catalogProductFilter.types.length > 0)
-            newProductsList = newProductsList.filter((product) =>
-                catalogProductFilter.types?.find((type: ProductType) => type.id === product.type.id)
-            );
-
-        setShownCatalogProducts(newProductsList);
-    }, [selectedSortState, catalogProductFilter]);
-
-    function getMinPrice() {
-        if (Array.isArray(props.products) && props.products.length > 0)
-            return (
-                Number(Math.min.apply(null, [...props.products.map((product) => Number(product.price))]).toFixed(0)) - 1
-            );
-        else return 0;
-    }
-
-    function getMaxPrice() {
-        if (Array.isArray(props.products) && props.products.length > 0)
-            return (
-                Number(Math.max.apply(null, [...props.products.map((product) => Number(product.price))]).toFixed(0)) + 1
-            );
-        else return 1000000;
-    }
+        setShownCatalogProducts([...sortList[selectedSortState].sort(props.products)]);
+    }, [selectedSortState]);
 
     return (
         <PageWrapper>
             <div className={styles.page}>
                 <div className={styles.catalogFilter}>
                     <CatalogFilter
-                        types={props.types}
                         price={{
-                            max: getMaxPrice(),
-                            min: getMinPrice(),
+                            max: props.priceRange.max,
+                            min: props.priceRange.min,
                         }}
-                        setFilterProducts={setCatalogProductFilter}
                     />
                 </div>
 
@@ -135,12 +98,10 @@ const CatalogPage: NextPage<CatalogPageProps> = (props: CatalogPageProps) => {
                         </div>
 
                         <CatalogFilter
-                            types={props.types}
                             price={{
-                                max: getMaxPrice(),
-                                min: getMinPrice(),
+                                max: props.priceRange.max,
+                                min: props.priceRange.min,
                             }}
-                            setFilterProducts={setCatalogProductFilter}
                         />
                     </div>
                 </div>
@@ -207,32 +168,33 @@ CatalogPage.getInitialProps = wrapper.getInitialPageProps((store) => async (cont
     await AuthStartUp(store, context);
     await BasketStartUp(store, context);
 
-    let types: Array<ProductType> = [];
-    let products: Array<Product> = [];
+    let props: CatalogPageProps = { products: [], priceRange: { max: 0, min: 1 } };
 
     const getProductsParams: ProductAPIGetProductsListParams = {};
     if (typeof context.query.name === "string") getProductsParams.name = context.query.name;
+    if (typeof context.query.min_price === "string") getProductsParams.min_price = context.query.min_price;
+    if (typeof context.query.max_price === "string") getProductsParams.max_price = context.query.max_price;
+    if (typeof context.query.types === "string") getProductsParams.types = context.query.types;
+    if (typeof context.query.providers === "string") getProductsParams.providers = context.query.providers;
 
-    const typesResult = await TypesAPI.getTypes();
     const productResult = await ProductAPI.getProductsList(getProductsParams);
 
-    if (typesResult.status === 200) {
-        types = typesResult.data as Array<ProductType>;
-
-        // Filter by type
-        // if (!Number.isNaN(Number(context.query.type)))
-        //     types = types.filter((type) => type.id === Number(context.query.type));
-
-        // types.forEach((type) => type.product_set?.forEach((product) => products.push(product)));
-    }
-
     if (productResult.status === 200) {
-        products = productResult.data as Array<Product>;
+        props = {
+            products: (productResult.data as ProductAPIGetProductsListData).products,
+            priceRange: (productResult.data as ProductAPIGetProductsListData).price_range,
+        };
     }
 
-    return { types, products } as CatalogPageProps;
+    return props;
 });
 
-type CatalogPageProps = { types: Array<ProductType>; products: Array<Product> };
+type CatalogPageProps = {
+    products: Array<Product>;
+    priceRange: {
+        max: number;
+        min: number;
+    };
+};
 
 export default CatalogPage;

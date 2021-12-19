@@ -10,50 +10,10 @@ import { PopupActionCreator } from "../../store/actionCreators/popupActionCreato
 
 const LoginPopup = dynamic(() => import("../LoginPopup"));
 const RegisterPopup = dynamic(() => import("../RegisterPopup"));
-const InfoPopup = dynamic(() => import("../InfoPopup"));
 
 const popupsList = [
     { type: PopupTypeEnum.login, component: LoginPopup },
     { type: PopupTypeEnum.register, component: RegisterPopup },
-    {
-        type: PopupTypeEnum.confirmEmailInfo,
-        component: () => {
-            const dispatch = useDispatch();
-            return (
-                <InfoPopup
-                    title="Вы зарегистрированы"
-                    description="Войдите в свой аккаунт"
-                    buttonOnClick={() => dispatch(PopupActionCreator.openPopup(PopupTypeEnum.login))}
-                />
-            );
-        },
-    },
-    {
-        type: PopupTypeEnum.resetPasswordInfo,
-        component: () => {
-            const dispatch = useDispatch();
-            return (
-                <InfoPopup
-                    title="Восстановление пароля"
-                    description="Письмо с дальнейшими действиями для восстановления пароля отправленно на вашу почту!"
-                    buttonOnClick={() => dispatch(PopupActionCreator.openPopup(PopupTypeEnum.login))}
-                />
-            );
-        },
-    },
-    {
-        type: PopupTypeEnum.resetPasswordSuccessed,
-        component: () => {
-            const dispatch = useDispatch();
-            return (
-                <InfoPopup
-                    title="Восстановление пароля"
-                    description="Новый пароль установлен!"
-                    buttonOnClick={() => dispatch(PopupActionCreator.openPopup(PopupTypeEnum.login))}
-                />
-            );
-        },
-    },
 ];
 
 export default function Popup() {

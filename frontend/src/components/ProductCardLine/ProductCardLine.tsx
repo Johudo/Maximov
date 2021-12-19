@@ -8,8 +8,6 @@ import Button from "../Button";
 export default function ProductCardLine(props: ProductCardLineProps) {
     const dispatch = useDispatch();
 
-    console.log(props);
-
     return (
         <div className={styles.card}>
             <div className={styles.imageWrapper}>

@@ -154,8 +154,15 @@
     margin-bottom: 10px;
 }
 
-.confirmButton {
+.confirmButton,
+.resetButton {
     width: 100%;
+}
+
+.resetButton {
+    margin-top: 12px;
+    background-color: #ffffff;
+    color: colors.$green-color;
 }
 
 @media (max-width: 460px) {

@@ -24,7 +24,7 @@ export default function BasketItemCard(props: BasketItemCardProps) {
                             : props.basketItem.product.name}
                     </div>
                     <div className={styles.priceInfo}>
-                        {(Number(props.basketItem.product.price) * props.basketItem.count).toFixed(2) + "₽ "}
+                        {(Number(props.basketItem.product.price) * props.basketItem.count).toFixed(2) + " ₽"}
                     </div>
                 </div>
 

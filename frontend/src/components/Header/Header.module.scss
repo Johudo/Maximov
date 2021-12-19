@@ -94,6 +94,15 @@
         right: -20px;
         width: 500px;
 
+        visibility: visible;
+        opacity: 1;
+        transition: 0.3s;
+
+        &.closed {
+            visibility: hidden;
+            opacity: 0;
+        }
+
         &::before {
             content: "";
             display: block;

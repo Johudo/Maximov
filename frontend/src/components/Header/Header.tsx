@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch, faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Header.module.scss";
@@ -13,20 +13,30 @@ import Basket from "../Basket";
 import Input from "../Input";
 import Button from "../Button";
 import { MobileNavbarActionCreator } from "../../store/actionCreators/mobileNavbarActionCreator";
-import Link from "next/link";
+import { useMedia } from "react-use";
+import { useRouter } from "next/router";
 
 export default function Header() {
+    const router = useRouter();
+
     const [isSearchShownState, setIsSearchShownState] = useState(false);
-    const [findInputState, setFindInputState] = useState("");
+    const [findInputState, setFindInputState] = useState(
+        typeof router.query.name === "string" ? router.query.name : ""
+    );
 
     const basketState = useSelector((state: IState) => state.basket);
     const userState = useSelector((state: IState) => state.user);
 
+    const isMobile = useMedia("max-width: 1000px");
     const dispatch = useDispatch();
 
     function toogleSearch() {
         setIsSearchShownState(!isSearchShownState);
     }
+
+    useEffect(() => {
+        if (typeof router.query.name === "string" || !router.query.name) setFindInputState(router.query.name || "");
+    }, [router.query.name]);
 
     return (
         <div className={styles.sticky}>
@@ -43,11 +53,9 @@ export default function Header() {
                     />
 
                     <h1 className={styles.logo}>
-                        <Link href="/">
-                            <a className={styles.logoLink}>
-                                <img src={logoImg.src} alt="ScreenOn" className={styles.logoImage} />
-                            </a>
-                        </Link>
+                        <a href="/" className={styles.logoLink}>
+                            <img src={logoImg.src} alt="ScreenOn" className={styles.logoImage} />
+                        </a>
                     </h1>
 
                     <form
@@ -97,11 +105,11 @@ export default function Header() {
                                 </span>
                             </div>
 
-                            {basketState.isOpen ? (
-                                <div className={styles.basketCard}>
+                            {!isMobile && (
+                                <div className={[styles.basketCard, !basketState.isOpen && styles.closed].join(" ")}>
                                     <Basket />
                                 </div>
-                            ) : null}
+                            )}
                         </div>
                     </div>
                 </Container>
