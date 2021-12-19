@@ -7,18 +7,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { PopupActionCreator } from "../../store/actionCreators/popupActionCreator";
+import InfoPopup from "../InfoPopup";
 
 const LoginPopup = dynamic(() => import("../LoginPopup"));
 const RegisterPopup = dynamic(() => import("../RegisterPopup"));
 
-const popupsList = [
-    { type: PopupTypeEnum.login, component: LoginPopup },
-    { type: PopupTypeEnum.register, component: RegisterPopup },
-];
-
 export default function Popup() {
     const [lastPopupType, setLastPopupType] = useState<PopupTypeEnum>();
     const popupState = useSelector((state: IState) => state.popup);
+
+    const popupsList = [
+        { type: PopupTypeEnum.login, component: LoginPopup },
+        { type: PopupTypeEnum.register, component: RegisterPopup },
+        {
+            type: PopupTypeEnum.confirmEmailInfo,
+            component: () => {
+                return (
+                    <InfoPopup
+                        title="Вы зарегистрированы"
+                        description="Чтобы продолжить подтвердите свой Email и войдите в свой аккаунт"
+                        buttonOnClick={() => dispatch(PopupActionCreator.openPopup(PopupTypeEnum.login))}
+                    />
+                );
+            },
+        },
+    ];
 
     const dispatch = useDispatch();
 

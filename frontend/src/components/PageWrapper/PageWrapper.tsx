@@ -13,7 +13,7 @@ import { useMedia } from "react-use";
 
 export default function PageWrapper(props: PageWrapperProps) {
     const isBasketOpenState = useSelector((state: IState) => state.basket.isOpen);
-    const isMobile = useMedia("max-width: 1000px");
+    const isMobile = useMedia("(max-width: 1000px)", false);
     const dispatch = useDispatch();
 
     return (

@@ -29,6 +29,7 @@ export default function ProductCard(props: ProductCardProps) {
                                     count: 1,
                                 })
                             );
+                            dispatch(BasketActionCreator.openBasket());
                         }}
                     >
                         <FontAwesomeIcon icon={faShoppingCart} />

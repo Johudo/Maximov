@@ -7,11 +7,18 @@ export const BasketActionCreator = {
     changeProductCountBasket: changeProductCountBasketState,
     addProductBasket: addProductBasketState,
     clearBasket,
+    openBasket,
 };
 
 function toggleBasketState() {
     return {
         type: BasketActionsEnum.TOGGLE_BASKET,
+    };
+}
+
+function openBasket() {
+    return {
+        type: BasketActionsEnum.OPEN_BASKET,
     };
 }
 

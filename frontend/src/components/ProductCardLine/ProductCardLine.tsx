@@ -9,16 +9,16 @@ export default function ProductCardLine(props: ProductCardLineProps) {
     const dispatch = useDispatch();
 
     return (
-        <div className={styles.card}>
+        <a href={`/product/${props.product.id}/`} className={styles.card}>
             <div className={styles.imageWrapper}>
                 <img src={props.product.image} className={styles.image} alt={props.product.name} />
             </div>
 
             <div className={styles.infoBlock}>
                 <div className={styles.rightBlock}>
-                    <a href={`/product/${props.product.id}/`} className={styles.catalogLink}>
+                    <div className={styles.catalogLink}>
                         <h2 className={styles.cardTitle}>{props.product.name}</h2>
-                    </a>
+                    </div>
 
                     {props.product.characteristics.map((characteristic, index) => (
                         <p className={styles.customInfo} key={`Product#${props.product.id} Characteristic#${index}`}>
@@ -34,13 +34,17 @@ export default function ProductCardLine(props: ProductCardLineProps) {
                         <Button
                             type="button"
                             className={styles.basketButton}
-                            onClick={() => {
+                            onClick={(event) => {
+                                event.preventDefault();
+
                                 dispatch(
                                     BasketActionCreator.addProductBasket({
                                         product: props.product,
                                         count: 1,
                                     })
                                 );
+
+                                dispatch(BasketActionCreator.openBasket());
                             }}
                         >
                             В корзину
@@ -48,7 +52,7 @@ export default function ProductCardLine(props: ProductCardLineProps) {
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     );
 }
 

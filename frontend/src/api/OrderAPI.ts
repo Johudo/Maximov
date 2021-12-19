@@ -6,6 +6,7 @@ import { PaymentTypeEnum } from "../enums/PaymentTypeEnum";
 import { Order } from "../types/Order";
 import { Product } from "../types/Product";
 import { NextAPIUtils } from "../utils/NextAPIUtils";
+import { HeaderType } from "../types/HeaderType";
 
 export const OrderAPI = { createOrder, getOwnOrders };
 
@@ -14,7 +15,7 @@ function createOrder(data: {
     storage: number;
     order_products: Array<{ product: number; count: number }>;
 }) {
-    const defaultHeaders: any = NextAPIUtils.setDefaultHeader();
+    const defaultHeaders: HeaderType = NextAPIUtils.setDefaultHeader();
 
     return axios
         .post(BACKEND_API_URL + "/api/orders/", data, { headers: defaultHeaders })
@@ -23,7 +24,7 @@ function createOrder(data: {
 }
 
 function getOwnOrders(req?: NextApiRequest | IncomingMessage) {
-    const defaultHeaders: any = NextAPIUtils.setDefaultHeader(req);
+    const defaultHeaders: HeaderType = NextAPIUtils.setDefaultHeader(req);
 
     return axios
         .get(BACKEND_API_URL + "/api/orders/", { headers: defaultHeaders })

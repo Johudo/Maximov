@@ -27,7 +27,7 @@ export default function Header() {
     const basketState = useSelector((state: IState) => state.basket);
     const userState = useSelector((state: IState) => state.user);
 
-    const isMobile = useMedia("max-width: 1000px");
+    const isMobile = useMedia("(max-width: 1000px)", false);
     const dispatch = useDispatch();
 
     function toogleSearch() {
@@ -99,7 +99,6 @@ export default function Header() {
                                 }}
                             >
                                 <FontAwesomeIcon icon={faShoppingCart} className={styles.basketIcon} />
-
                                 <span className={styles.basketCounter}>
                                     {basketState.products.reduce((previous, current) => previous + current.count, 0)}
                                 </span>

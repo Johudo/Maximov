@@ -19,20 +19,27 @@ export default function basketReducer(state: BasketState = defaultBasketState, a
     let products = state.products;
 
     switch (action.type) {
-        case BasketActionsEnum.TOGGLE_BASKET:
+        case BasketActionsEnum.TOGGLE_BASKET: {
             return { ...state, isOpen: !state.isOpen };
+        }
 
-        case BasketActionsEnum.CLOSE_BASKET:
+        case BasketActionsEnum.CLOSE_BASKET: {
             return { ...state, isOpen: false };
+        }
 
-        case BasketActionsEnum.CHANGE_PRODUCT_COUNT:
+        case BasketActionsEnum.OPEN_BASKET: {
+            return { ...state, isOpen: true };
+        }
+
+        case BasketActionsEnum.CHANGE_PRODUCT_COUNT: {
             products = changeProductCount(action.basketItem, action.newCount);
 
             BasketStorage.setBasketStorage(products);
             return { ...state, products };
+        }
 
-        case BasketActionsEnum.ADD_PRODUCT:
-            const foundProduct = state.products.find(
+        case BasketActionsEnum.ADD_PRODUCT: {
+            const foundProduct = products.find(
                 (basketItem: BasketItem) => basketItem.product.id === action.basketItem.product.id
             );
 
@@ -41,12 +48,15 @@ export default function basketReducer(state: BasketState = defaultBasketState, a
 
             BasketStorage.setBasketStorage(products);
             return { ...state, products };
+        }
 
-        case BasketActionsEnum.CLEAR_BASKET:
+        case BasketActionsEnum.CLEAR_BASKET: {
             BasketStorage.setBasketStorage([]);
             return { ...state, products: [] };
+        }
 
-        default:
+        default: {
             return state;
+        }
     }
 }

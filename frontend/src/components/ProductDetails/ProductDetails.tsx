@@ -56,6 +56,7 @@ export default function ProductDetails(props: ProductDetailsProps) {
                             count: productCount,
                         })
                     );
+                    dispatch(BasketActionCreator.openBasket());
                 }}
             >
                 В корзину
